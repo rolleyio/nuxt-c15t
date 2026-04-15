@@ -1,0 +1,57 @@
+{
+  "name": "nuxt-c15t",
+  "version": "0.1.0",
+  "description": "Nuxt module for c15t consent management — reactive composables, headless components, Nuxt Scripts integration, and vendor-aware cookie policy tables",
+  "repository": "rolleyio/nuxt-c15t",
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/types.d.mts",
+      "import": "./dist/module.mjs"
+    }
+  },
+  "main": "./dist/module.mjs",
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./dist/types.d.mts"
+      ]
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "prepack": "nuxt-module-build build",
+    "dev": "npm run dev:prepare && nuxt dev playground",
+    "dev:build": "nuxt build playground",
+    "dev:prepare": "nuxt-module-build build --stub && nuxt-module-build prepare && nuxt prepare playground",
+    "release": "npm run lint && npm run test && npm run prepack && changelogen --release && npm publish && git push --follow-tags",
+    "lint": "eslint .",
+    "test": "vitest run",
+    "test:watch": "vitest watch",
+    "test:types": "vue-tsc --noEmit && cd playground && vue-tsc --noEmit",
+    "docs:dev": "pnpm --filter nuxt-c15t-docs dev",
+    "docs:build": "pnpm --filter nuxt-c15t-docs build"
+  },
+  "dependencies": {
+    "@nuxt/kit": "^4.4.2",
+    "c15t": "^2.0.0"
+  },
+  "devDependencies": {
+    "@nuxt/devtools": "^3.2.4",
+    "@nuxt/eslint-config": "^1.15.2",
+    "@nuxt/module-builder": "^1.0.2",
+    "@nuxt/schema": "^4.4.2",
+    "@nuxt/test-utils": "^4.0.2",
+    "@types/node": "latest",
+    "changelogen": "^0.6.2",
+    "eslint": "^10.2.0",
+    "nuxt": "^4.4.2",
+    "typescript": "~6.0.2",
+    "vitest": "^4.1.4",
+    "vue-tsc": "^3.2.6"
+  },
+  "packageManager": "pnpm@10.33.0"
+}

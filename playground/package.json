@@ -1,0 +1,14 @@
+{
+  "private": true,
+  "name": "nuxt-c15t-playground",
+  "type": "module",
+  "scripts": {
+    "dev": "nuxt dev",
+    "build": "nuxt build",
+    "generate": "nuxt generate"
+  },
+  "dependencies": {
+    "nuxt": "^4.4.2",
+    "@nuxt/scripts": "^0.11.0"
+  }
+}
