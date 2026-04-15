@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue'
 import type { AllConsentNames, ConsentType } from 'c15t'
-import { useC15t } from '#imports'
+import { useC15t, ref, computed, watch } from '#imports'
 
 const {
   activeUI,
@@ -36,6 +35,27 @@ function acceptAll() {
 function closeDialog() {
   setActiveUI('none')
 }
+
+const t = computed(() => {
+  const raw = translations.value as Record<string, Record<string, string>> | null
+  return {
+    title: raw?.consentManagerDialog?.title ?? 'Privacy Settings',
+    description: raw?.consentManagerDialog?.description ?? 'Customize your privacy settings here.',
+    save: raw?.common?.save ?? 'Save Settings',
+    acceptAll: raw?.common?.acceptAll ?? 'Accept All',
+    close: raw?.common?.close ?? 'Close',
+  }
+})
+
+function consentTypeLabel(name: string) {
+  const raw = translations.value as Record<string, Record<string, Record<string, string>>> | null
+  return raw?.consentTypes?.[name]?.title ?? name
+}
+
+function consentTypeDescription(name: string) {
+  const raw = translations.value as Record<string, Record<string, Record<string, string>>> | null
+  return raw?.consentTypes?.[name]?.description ?? ''
+}
 </script>
 
 <template>
@@ -48,121 +68,61 @@ function closeDialog() {
       <slot
         :displayed-consents="displayedConsents"
         :consents="consents"
-        :translations="translations"
+        :translations="t"
         :toggle="toggle"
         :save-custom="saveCustom"
         :accept-all="acceptAll"
         :close="closeDialog"
       >
-        <!-- Fallback: minimal unstyled preferences dialog -->
-        <div
-          style="
-            position: fixed;
-            inset: 0;
-            z-index: 10000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(0,0,0,0.4);
-            font-family: system-ui, -apple-system, sans-serif;
-            font-size: 0.875rem;
-          "
-          @click.self="closeDialog"
-        >
-          <div
-            style="
-              background: #fff;
-              border-radius: 0.75rem;
-              padding: 1.5rem;
-              max-width: 32rem;
-              width: 100%;
-              max-height: 80vh;
-              overflow-y: auto;
-              box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-            "
-          >
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
-              <h2 style="margin: 0; font-size: 1.125rem; color: #111827;">
-                {{ translations.consentManagerDialog.title }}
+        <div class="c15t-dialog__backdrop" @click.self="closeDialog">
+          <div class="c15t-dialog">
+            <div class="c15t-dialog__header">
+              <h2 class="c15t-dialog__title">
+                {{ t.title }}
               </h2>
               <button
-                style="background: none; border: none; cursor: pointer; font-size: 1.25rem; color: #6b7280;"
-                :aria-label="translations.common.close"
+                class="c15t-dialog__close"
+                :aria-label="t.close"
                 @click="closeDialog"
               >
                 &times;
               </button>
             </div>
 
-            <p style="color: #6b7280; margin: 0 0 1rem;">
-              {{ translations.consentManagerDialog.description }}
+            <p class="c15t-dialog__description">
+              {{ t.description }}
             </p>
 
-            <div style="display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 1.5rem;">
+            <div class="c15t-dialog__consents">
               <label
                 v-for="ct in displayedConsents"
                 :key="ct.name"
-                style="
-                  display: flex;
-                  align-items: flex-start;
-                  gap: 0.75rem;
-                  padding: 0.75rem;
-                  border: 1px solid #e5e7eb;
-                  border-radius: 0.5rem;
-                "
+                class="c15t-consent"
               >
                 <input
                   type="checkbox"
-                  :checked="consents[ct.name]"
+                  class="c15t-consent__checkbox"
+                  :checked="(consents as Record<string, boolean>)[ct.name]"
                   :disabled="ct.disabled"
-                  style="margin-top: 0.15rem;"
                   @change="toggle(ct.name, ($event.target as HTMLInputElement).checked)"
                 >
-                <div>
-                  <div style="font-weight: 500; color: #111827;">
-                    {{ translations.consentTypes[ct.name]?.title ?? ct.description }}
+                <div class="c15t-consent__text">
+                  <div class="c15t-consent__label">
+                    {{ consentTypeLabel(ct.name) }}
                   </div>
-                  <div style="font-size: 0.8125rem; color: #6b7280; margin-top: 0.125rem;">
-                    {{ translations.consentTypes[ct.name]?.description ?? '' }}
-                  </div>
-                  <div
-                    v-if="ct.disabled"
-                    style="font-size: 0.75rem; color: #9ca3af; margin-top: 0.125rem;"
-                  >
-                    Always active
+                  <div class="c15t-consent__description">
+                    {{ consentTypeDescription(ct.name) }}
                   </div>
                 </div>
               </label>
             </div>
 
-            <div style="display: flex; gap: 0.5rem; justify-content: flex-end;">
-              <button
-                style="
-                  padding: 0.5rem 1rem;
-                  border: 1px solid #d1d5db;
-                  border-radius: 0.375rem;
-                  background: #fff;
-                  color: #374151;
-                  cursor: pointer;
-                  font-size: 0.875rem;
-                "
-                @click="saveCustom"
-              >
-                {{ translations.common.save }}
+            <div class="c15t-dialog__actions">
+              <button class="c15t-btn c15t-btn--secondary" @click="saveCustom">
+                {{ t.save }}
               </button>
-              <button
-                style="
-                  padding: 0.5rem 1rem;
-                  border: none;
-                  border-radius: 0.375rem;
-                  background: #111827;
-                  color: #fff;
-                  cursor: pointer;
-                  font-size: 0.875rem;
-                "
-                @click="acceptAll"
-              >
-                {{ translations.common.acceptAll }}
+              <button class="c15t-btn c15t-btn--primary" @click="acceptAll">
+                {{ t.acceptAll }}
               </button>
             </div>
           </div>
@@ -171,3 +131,94 @@ function closeDialog() {
     </div>
   </Teleport>
 </template>
+
+<style>
+.c15t-dialog__backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.4);
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 0.875rem;
+}
+
+.c15t-dialog {
+  background: #fff;
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  max-width: 32rem;
+  width: 100%;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+.c15t-dialog__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.c15t-dialog__title {
+  margin: 0;
+  font-size: 1.125rem;
+  color: #111827;
+}
+
+.c15t-dialog__close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.25rem;
+  color: #6b7280;
+  line-height: 1;
+  padding: 0.25rem;
+}
+
+.c15t-dialog__description {
+  color: #6b7280;
+  margin: 0 0 1rem;
+}
+
+.c15t-dialog__consents {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.c15t-dialog__actions {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: flex-end;
+}
+
+.c15t-consent {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+.c15t-consent__checkbox {
+  margin-top: 0.15rem;
+}
+
+.c15t-consent__label {
+  font-weight: 500;
+  color: #111827;
+}
+
+.c15t-consent__description {
+  font-size: 0.8125rem;
+  color: #6b7280;
+  margin-top: 0.125rem;
+}
+</style>

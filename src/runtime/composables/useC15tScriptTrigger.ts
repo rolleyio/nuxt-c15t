@@ -1,4 +1,4 @@
-import { onScopeDispose } from 'vue'
+import { onScopeDispose } from '#imports'
 import type { AllConsentNames, HasCondition } from 'c15t'
 import { useC15tStore } from '../utils/store'
 

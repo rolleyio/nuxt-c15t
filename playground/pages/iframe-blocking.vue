@@ -5,36 +5,38 @@ const hasMeasurement = has('measurement')
 </script>
 
 <template>
-  <div>
-    <h2 style="font-size: 1.125rem; font-weight: 600; margin-bottom: 0.75rem;">
-      Iframe Blocking
-    </h2>
-    <p style="color: #6b7280; font-size: 0.875rem; margin: 0 0 1.5rem;">
-      Use <code>&lt;C15tIframe&gt;</code> to gate iframes behind consent.
-      The iframe only loads when the required consent category is granted.
-      A placeholder is shown in the meantime.
-    </p>
+  <div class="space-y-6">
+    <div>
+      <h2 class="text-lg font-semibold mb-1">
+        Iframe Blocking
+      </h2>
+      <p class="text-sm text-gray-500 mb-4">
+        Use <code>&lt;C15tIframe&gt;</code> to gate iframes behind consent. The iframe only loads when the required consent is granted.
+      </p>
+    </div>
 
-    <div style="display: flex; gap: 0.5rem; margin-bottom: 1.5rem;">
-      <button
-        style="padding: 0.375rem 0.75rem; border: none; border-radius: 0.375rem; cursor: pointer; font-size: 0.8125rem;"
-        :style="{ background: hasMarketing ? '#d1fae5' : '#fee2e2', color: hasMarketing ? '#065f46' : '#991b1b' }"
+    <div class="flex gap-2">
+      <UButton
+        size="xs"
+        :color="hasMarketing ? 'success' : 'error'"
+        variant="soft"
         @click="setConsent('marketing', !hasMarketing)"
       >
         marketing: {{ hasMarketing ? 'granted' : 'denied' }}
-      </button>
-      <button
-        style="padding: 0.375rem 0.75rem; border: none; border-radius: 0.375rem; cursor: pointer; font-size: 0.8125rem;"
-        :style="{ background: hasMeasurement ? '#d1fae5' : '#fee2e2', color: hasMeasurement ? '#065f46' : '#991b1b' }"
+      </UButton>
+      <UButton
+        size="xs"
+        :color="hasMeasurement ? 'success' : 'error'"
+        variant="soft"
         @click="setConsent('measurement', !hasMeasurement)"
       >
         measurement: {{ hasMeasurement ? 'granted' : 'denied' }}
-      </button>
+      </UButton>
     </div>
 
-    <div style="display: grid; gap: 1.5rem; grid-template-columns: 1fr 1fr;">
+    <div class="grid grid-cols-2 gap-6">
       <div>
-        <h3 style="font-size: 0.875rem; font-weight: 600; margin-bottom: 0.5rem;">
+        <h3 class="text-sm font-semibold mb-2">
           Marketing iframe (YouTube)
         </h3>
         <C15tIframe
@@ -42,13 +44,13 @@ const hasMeasurement = has('measurement')
           category="marketing"
           width="100%"
           height="200"
-          style="border: none; display: block; border-radius: 0.5rem; overflow: hidden;"
+          class="border-none block rounded-lg overflow-hidden"
           title="YouTube embed"
         />
       </div>
 
       <div>
-        <h3 style="font-size: 0.875rem; font-weight: 600; margin-bottom: 0.5rem;">
+        <h3 class="text-sm font-semibold mb-2">
           Measurement iframe
         </h3>
         <C15tIframe
@@ -56,21 +58,21 @@ const hasMeasurement = has('measurement')
           category="measurement"
           width="100%"
           height="200"
-          style="border: none; display: block; border-radius: 0.5rem; overflow: hidden;"
+          class="border-none block rounded-lg overflow-hidden"
           title="Analytics embed"
         />
       </div>
     </div>
 
-    <section style="margin-top: 2rem;">
-      <h3 style="font-size: 1rem; font-weight: 600; margin-bottom: 0.5rem;">Code</h3>
-      <pre style="background: #f3f4f6; padding: 1rem; border-radius: 0.5rem; font-size: 0.75rem; overflow-x: auto;">&lt;C15tIframe
+    <UCard>
+      <h3 class="font-semibold mb-2">Code</h3>
+      <pre class="text-xs overflow-x-auto">&lt;C15tIframe
   src="https://www.youtube-nocookie.com/embed/VIDEO_ID"
   category="marketing"
   width="560"
   height="315"
   title="YouTube video"
 /&gt;</pre>
-    </section>
+    </UCard>
   </div>
 </template>
