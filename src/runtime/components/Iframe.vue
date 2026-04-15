@@ -16,6 +16,16 @@ const categoryTitle = computed(() => {
   const raw = translations.value as Record<string, Record<string, Record<string, string>>> | null
   return raw?.consentTypes?.[props.category]?.title ?? props.category
 })
+
+const frameText = computed(() => {
+  const raw = translations.value as Record<string, Record<string, string>> | null
+  const title = raw?.frame?.title ?? 'Accept {category} consent to view this content.'
+  const action = raw?.frame?.actionButton ?? 'Enable {category} consent'
+  return {
+    title: title.replace('{category}', categoryTitle.value),
+    action: action.replace('{category}', categoryTitle.value),
+  }
+})
 </script>
 
 <template>
@@ -32,10 +42,10 @@ const categoryTitle = computed(() => {
         class="c15t-iframe-placeholder"
       >
         <p class="c15t-iframe-placeholder__title">
-          {{ categoryTitle }} consent required
+          {{ frameText.title }}
         </p>
         <p class="c15t-iframe-placeholder__description">
-          This content is blocked until you grant {{ categoryTitle.toLowerCase() }} consent.
+          {{ frameText.action }}
         </p>
       </div>
     </slot>

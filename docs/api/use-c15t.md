@@ -123,25 +123,67 @@ Returns the consent types that should be displayed to the user based on their ju
 
 ### `setLanguage(language)`
 
-Change the active language for consent UI translations. The `translations` computed re-evaluates automatically.
+Change the active language for consent UI translations.
 
 ```ts
 setLanguage('de')
+```
+
+### `identifyUser(user)`
+
+Associate consent with a logged-in user. Used in hosted/self-hosted mode to link consent records to user accounts.
+
+```ts
+identifyUser({ id: 'user-123', identityProvider: 'better-auth' })
+```
+
+### `onConsentChanged(listener)`
+
+Subscribe to consent changes. Returns an unsubscribe function.
+
+```ts
+const unsubscribe = onConsentChanged((payload) => {
+  console.log('Consent changed:', payload)
+  // Send to analytics, update UI, etc.
+})
+
+// Later: unsubscribe()
 ```
 
 ## Reactive State (additional)
 
 ### `translations`
 
-- **Type:** `ComputedRef<ResolvedTranslations>`
+- **Type:** `ComputedRef<Record<string, unknown> | null>`
 
-Resolved translation strings for the active language. Used by all built-in components (Banner, Dialog) to render localised text. Falls back to English defaults during SSR.
+Resolved translations for the active language, directly from c15t's store. Used by all built-in components. Returns `null` during SSR.
 
-```ts
-const { translations } = useC15t()
+### `consentTypes`
 
-// Access translated strings
-translations.value.cookieBanner.title      // "We value your privacy"
-translations.value.common.acceptAll        // "Accept All"
-translations.value.consentTypes.marketing  // { title: "Marketing", description: "..." }
-```
+- **Type:** `ComputedRef<ConsentType[]>`
+
+Array of consent type objects with `name`, `description`, `disabled`, etc. Useful for building custom consent UIs.
+
+### `legalLinks`
+
+- **Type:** `ComputedRef<LegalLinks | null>`
+
+Privacy policy, cookie policy, and terms of service URLs if configured.
+
+### `locationInfo`
+
+- **Type:** `ComputedRef<LocationInfo | null>`
+
+Detected country, region, and jurisdiction from geo-detection.
+
+### `consentInfo`
+
+- **Type:** `ComputedRef<ConsentInfo | null>`
+
+Consent record metadata (subject ID, timestamp) for compliance auditing.
+
+### `allConsentNames`
+
+- **Type:** `AllConsentNames[]`
+
+Static array of all consent category names: `['necessary', 'functionality', 'measurement', 'experience', 'marketing']`. Useful for iterating over categories.

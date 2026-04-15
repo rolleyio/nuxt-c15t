@@ -8,7 +8,9 @@ const pages = [
   { path: '/iframe-blocking', label: 'Iframe Blocking' },
   { path: '/nuxt-scripts', label: 'Nuxt Scripts' },
   { path: '/compound-conditions', label: 'Compound Conditions' },
+  { path: '/consent-gate', label: 'Consent Gate' },
   { path: '/translations', label: 'Translations' },
+  { path: '/advanced', label: 'Advanced' },
 ]
 </script>
 

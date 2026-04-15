@@ -26,6 +26,7 @@ export default defineConfig({
         items: [
           { text: 'useC15t', link: '/api/use-c15t' },
           { text: 'useC15tScriptTrigger', link: '/api/use-c15t-script-trigger' },
+          { text: 'useC15tConsent (server)', link: '/api/use-c15t-consent-server' },
           { text: 'useCookiePolicy', link: '/api/use-cookie-policy' },
         ],
       },
@@ -36,6 +37,7 @@ export default defineConfig({
           { text: 'C15tDialog', link: '/components/dialog' },
           { text: 'C15tCookiePolicy', link: '/components/cookie-policy' },
           { text: 'C15tIframe', link: '/components/iframe' },
+          { text: 'C15tConsentGate', link: '/components/consent-gate' },
         ],
       },
     ],

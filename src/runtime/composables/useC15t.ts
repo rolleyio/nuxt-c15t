@@ -38,10 +38,16 @@ export function useC15t() {
     }
   })
 
+  // --- Reactive state (computed from store snapshot) ---
+
   const consents = computed(() => storeState.value?.consents ?? {})
   const activeUI = computed<ActiveUI>(() => storeState.value?.activeUI ?? 'none')
   const isLoading = computed(() => storeState.value?.isLoadingConsentInfo ?? true)
   const hasConsented = computed(() => storeState.value?.hasConsented() ?? false)
+  const consentTypes = computed(() => storeState.value?.consentTypes ?? [])
+  const legalLinks = computed(() => storeState.value?.legalLinks ?? null)
+  const locationInfo = computed(() => storeState.value?.locationInfo ?? null)
+  const consentInfo = computed(() => storeState.value?.consentInfo ?? null)
 
   const translations = computed(() => {
     const tc = storeState.value?.translationConfig
@@ -49,6 +55,8 @@ export function useC15t() {
     const lang = storeState.value?.overrides?.language ?? tc.defaultLanguage ?? 'en'
     return tc.translations[lang] ?? tc.translations.en ?? null
   })
+
+  // --- Methods ---
 
   function has(condition: HasCondition<AllConsentNames>) {
     return computed(() => {
@@ -86,13 +94,27 @@ export function useC15t() {
     store?.getState().setLanguage(language)
   }
 
+  function identifyUser(user: { id: string; identityProvider?: string }) {
+    store?.getState().identifyUser(user)
+  }
+
+  function onConsentChanged(listener: (payload: unknown) => void) {
+    return store?.getState().subscribeToConsentChanges(listener) ?? (() => {})
+  }
+
   return {
     allConsentNames,
+    // Reactive state
     consents,
     activeUI,
     isLoading,
     hasConsented,
+    consentTypes,
+    legalLinks,
+    locationInfo,
+    consentInfo,
     translations,
+    // Methods
     has,
     saveConsents,
     setConsent,
@@ -101,5 +123,7 @@ export function useC15t() {
     resetConsents,
     getDisplayedConsents,
     setLanguage,
+    identifyUser,
+    onConsentChanged,
   }
 }
