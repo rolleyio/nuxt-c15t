@@ -37,8 +37,7 @@ Drop the consent banner and preferences dialog into your `app.vue` or layout:
 <template>
   <div>
     <NuxtPage />
-    <C15tBanner />
-    <C15tDialog />
+    <C15tConsentManager />
   </div>
 </template>
 ```

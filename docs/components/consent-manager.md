@@ -27,25 +27,27 @@ This is equivalent to:
 Customise the banner, dialog, or both using named slots. Each slot receives the same props as the individual component's default slot.
 
 ```vue
-<C15tConsentManager>
-  <template #banner="{ acceptAll, acceptNecessary, openPreferences, translations }">
-    <div class="my-banner">
-      <p>{{ translations.title }}</p>
-      <button @click="acceptAll">OK</button>
-      <button @click="openPreferences">Settings</button>
-    </div>
-  </template>
+<template>
+  <C15tConsentManager>
+    <template #banner="{ acceptAll, acceptNecessary, openPreferences, translations }">
+      <div class="my-banner">
+        <p>{{ translations.title }}</p>
+        <button @click="acceptAll">OK</button>
+        <button @click="openPreferences">Settings</button>
+      </div>
+    </template>
 
-  <template #dialog="{ displayedConsents, consents, toggle, saveCustom, acceptAll, close }">
-    <div class="my-dialog">
-      <label v-for="ct in displayedConsents" :key="ct.name">
-        <input type="checkbox" :checked="consents[ct.name]" @change="toggle(ct.name, $event.target.checked)" />
-        {{ ct.description }}
-      </label>
-      <button @click="saveCustom">Save</button>
-    </div>
-  </template>
-</C15tConsentManager>
+    <template #dialog="{ displayedConsents, consents, toggle, saveCustom, acceptAll, close }">
+      <div class="my-dialog">
+        <label v-for="ct in displayedConsents" :key="ct.name">
+          <input type="checkbox" :checked="consents[ct.name]" @change="toggle(ct.name, $event.target.checked)" />
+          {{ ct.description }}
+        </label>
+        <button @click="saveCustom">Save</button>
+      </div>
+    </template>
+  </C15tConsentManager>
+</template>
 ```
 
 ## Slots
