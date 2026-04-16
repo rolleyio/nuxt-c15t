@@ -128,4 +128,46 @@ export const vendorRegistry: VendorDefinition[] = [
       { name: '__stripe_sid', vendor: 'Stripe', category: 'necessary', purpose: 'Fraud prevention and detection for the current browsing session.', duration: 'Session', type: 'HTTP' },
     ],
   },
+  {
+    id: 'youtube',
+    name: 'YouTube',
+    privacyPolicyUrl: 'https://policies.google.com/privacy',
+    cookies: [
+      { name: 'YSC', vendor: 'YouTube', category: 'marketing', purpose: 'Registers a unique ID to keep statistics of what videos from YouTube the user has seen.', duration: 'Session', type: 'HTTP' },
+      { name: 'VISITOR_INFO1_LIVE', vendor: 'YouTube', category: 'marketing', purpose: 'Tries to estimate the users bandwidth on pages with integrated YouTube videos.', duration: '6 months', type: 'HTTP' },
+      { name: 'yt-remote-device-id', vendor: 'YouTube', category: 'marketing', purpose: 'Stores the user video player preferences using embedded YouTube video.', duration: 'Persistent', type: 'HTML Local Storage' },
+      { name: 'yt-remote-connected-devices', vendor: 'YouTube', category: 'marketing', purpose: 'Stores the user video player preferences using embedded YouTube video.', duration: 'Persistent', type: 'HTML Local Storage' },
+      { name: 'yt.innertube::requests', vendor: 'YouTube', category: 'marketing', purpose: 'Registers a unique ID to keep statistics of what videos from YouTube the user has seen.', duration: 'Persistent', type: 'HTML Local Storage' },
+    ],
+  },
+  {
+    id: 'vimeo',
+    name: 'Vimeo',
+    privacyPolicyUrl: 'https://vimeo.com/privacy',
+    cookies: [
+      { name: 'vuid', vendor: 'Vimeo', category: 'marketing', purpose: 'Collects data on the user visits to the website, such as which pages have been read.', duration: '2 years', type: 'HTTP' },
+      { name: 'player', vendor: 'Vimeo', category: 'functionality', purpose: 'Saves the user settings when playing embedded Vimeo videos.', duration: '1 year', type: 'HTTP' },
+      { name: '__cf_bm', vendor: 'Vimeo', category: 'necessary', purpose: 'Used by Cloudflare to distinguish between humans and bots on the Vimeo CDN.', duration: '30 minutes', type: 'HTTP' },
+    ],
+  },
+  {
+    id: 'cloudflare',
+    name: 'Cloudflare',
+    privacyPolicyUrl: 'https://www.cloudflare.com/privacypolicy/',
+    cookies: [
+      { name: '__cf_bm', vendor: 'Cloudflare', category: 'necessary', purpose: 'Bot management cookie used to distinguish between humans and bots.', duration: '30 minutes', type: 'HTTP' },
+      { name: '__cfruid', vendor: 'Cloudflare', category: 'necessary', purpose: 'Used to identify trusted web traffic and improve security.', duration: 'Session', type: 'HTTP' },
+      { name: 'cf_clearance', vendor: 'Cloudflare', category: 'necessary', purpose: 'Issued when a visitor solves a Cloudflare challenge. Records that the visitor has successfully passed the challenge.', duration: '30 minutes', type: 'HTTP' },
+      { name: '_cfuvid', vendor: 'Cloudflare', category: 'necessary', purpose: 'Used for rate limiting to manage traffic to the origin server.', duration: 'Session', type: 'HTTP' },
+    ],
+  },
+  {
+    id: 'cloudflare-turnstile',
+    name: 'Cloudflare Turnstile',
+    privacyPolicyUrl: 'https://www.cloudflare.com/privacypolicy/',
+    cookies: [
+      { name: 'cf_turnstile_*', vendor: 'Cloudflare Turnstile', category: 'necessary', purpose: 'Used by Cloudflare Turnstile to verify the visitor is a real person without a CAPTCHA.', duration: 'Session', type: 'HTTP' },
+      { name: '__cf_bm', vendor: 'Cloudflare Turnstile', category: 'necessary', purpose: 'Bot management cookie used to distinguish between humans and bots.', duration: '30 minutes', type: 'HTTP' },
+    ],
+  },
 ]
