@@ -76,5 +76,36 @@ const hasMeasurement = has('measurement')
   title="YouTube video"
 /&gt;</pre>
     </UCard>
+
+    <div>
+      <h2 class="text-lg font-semibold mb-1">
+        Raw iframe blocking
+      </h2>
+      <p class="text-sm text-gray-500 mb-4">
+        For content you don't control (CMS output, third-party embeds), use <code>data-category</code> and <code>data-src</code> on a plain <code>&lt;iframe&gt;</code>. c15t sets <code>src</code> from <code>data-src</code> once consent is granted.
+      </p>
+
+      <iframe
+        data-category="marketing"
+        data-src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ"
+        width="100%"
+        height="300"
+        class="border-none block rounded-lg overflow-hidden"
+        title="YouTube embed (raw)"
+      />
+    </div>
+
+    <UCard>
+      <h3 class="font-semibold mb-2">
+        Code
+      </h3>
+      <pre class="text-xs overflow-x-auto">&lt;iframe
+  data-category="marketing"
+  data-src="https://www.youtube-nocookie.com/embed/VIDEO_ID"
+  width="560"
+  height="315"
+  title="YouTube video"
+/&gt;</pre>
+    </UCard>
   </div>
 </template>

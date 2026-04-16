@@ -1,22 +1,43 @@
 # Iframe Blocking
 
-`nuxt-c15t` can block third-party iframes (YouTube, social embeds, maps) until the relevant consent category is granted.
-
-## Setup
-
-Iframe blocking is enabled by default. To disable:
-
-```ts
-export default defineNuxtConfig({
-  c15t: {
-    iframeBlocking: false,
-  },
-})
-```
+Use the [`<C15tIframe>`](/components/iframe) component to gate third-party iframes (YouTube, social embeds, maps) behind a consent category. The iframe only loads once the required consent is granted.
 
 ## Usage
 
-Add `data-category` and use `data-src` instead of `src` on iframes that require consent:
+```vue
+<template>
+  <C15tIframe
+    src="https://www.youtube-nocookie.com/embed/VIDEO_ID"
+    category="marketing"
+    width="560"
+    height="315"
+    title="YouTube video"
+  />
+</template>
+```
+
+When `marketing` consent is denied, a placeholder is rendered. When granted, the iframe mounts and loads automatically.
+
+See the [`<C15tIframe>` component reference](/components/iframe) for custom placeholders via slot props and the full prop list.
+
+## Categories
+
+Use any configured consent category:
+
+```vue
+<!-- Marketing: ads, social embeds, retargeting -->
+<C15tIframe category="marketing" src="..." />
+
+<!-- Measurement: analytics embeds -->
+<C15tIframe category="measurement" src="..." />
+
+<!-- Functionality: maps, chat widgets -->
+<C15tIframe category="functionality" src="..." />
+```
+
+## Automatic blocking of raw `<iframe>` elements
+
+For content you don't control (CMS output, third-party embeds), `nuxt-c15t` also blocks raw `<iframe>` elements that opt in via `data-category` and `data-src`:
 
 ```html
 <iframe
@@ -28,30 +49,16 @@ Add `data-category` and use `data-src` instead of `src` on iframes that require 
 />
 ```
 
-When the user grants `marketing` consent, c15t automatically sets `src` from `data-src` and the iframe loads.
+On page load, c15t scans iframes with `data-category`, leaves `src` unset until the category is granted, then restores it from `data-src`. A `MutationObserver` handles dynamically added iframes. Always use `data-src` instead of `src` — setting `src` directly triggers a network request before c15t can block it.
 
-## How It Works
+## Disable raw `<iframe>` blocking
 
-1. On page load, c15t scans all `<iframe>` elements with a `data-category` attribute
-2. If the required consent hasn't been granted, the iframe's `src` is not set (or removed)
-3. A `MutationObserver` watches for dynamically added iframes
-4. When consent is granted, `src` is restored from `data-src`
+Raw-iframe blocking is enabled by default. To turn it off:
 
-## Important
-
-Always use `data-src` instead of `src` for blocked iframes. If you set `src` directly, the iframe will make a network request before c15t can block it, and the URL won't be preserved for restoration after consent.
-
-## Categories
-
-Use any configured consent category:
-
-```html
-<!-- Marketing: ads, social embeds, retargeting -->
-<iframe data-category="marketing" data-src="..." />
-
-<!-- Measurement: analytics embeds -->
-<iframe data-category="measurement" data-src="..." />
-
-<!-- Functionality: maps, chat widgets -->
-<iframe data-category="functionality" data-src="..." />
+```ts
+export default defineNuxtConfig({
+  c15t: {
+    iframeBlocking: false,
+  },
+})
 ```
