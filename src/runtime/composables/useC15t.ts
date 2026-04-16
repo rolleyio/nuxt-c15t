@@ -47,7 +47,7 @@ export function useC15t() {
   const consentTypes = computed<ConsentStoreState['consentTypes']>(() => storeState.value?.consentTypes ?? [])
   const legalLinks = computed<ConsentStoreState['legalLinks'] | null>(() => storeState.value?.legalLinks ?? null)
   const locationInfo = computed<ConsentStoreState['locationInfo']>(() => storeState.value?.locationInfo ?? null)
-  const consentInfo = computed(() => storeState.value?.consentInfo as { time: number; subjectId: string; externalId?: string | null; type: string } | null ?? null)
+  const consentInfo = computed(() => storeState.value?.consentInfo as { time: number, subjectId: string, externalId?: string | null, type: string } | null ?? null)
 
   const translations = computed(() => {
     const tc = storeState.value?.translationConfig
@@ -94,7 +94,7 @@ export function useC15t() {
     store?.getState().setLanguage(language)
   }
 
-  function identifyUser(user: { id: string; identityProvider?: string }) {
+  function identifyUser(user: { id: string, identityProvider?: string }) {
     store?.getState().identifyUser(user)
   }
 

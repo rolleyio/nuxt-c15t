@@ -52,11 +52,21 @@ const headers = computed(() => {
           <table class="c15t-policy-table">
             <thead>
               <tr class="c15t-policy-table__header-row">
-                <th class="c15t-policy-table__th">{{ headers.name }}</th>
-                <th class="c15t-policy-table__th">{{ headers.provider }}</th>
-                <th class="c15t-policy-table__th">{{ headers.purpose }}</th>
-                <th class="c15t-policy-table__th">{{ headers.expiry }}</th>
-                <th class="c15t-policy-table__th">{{ headers.type }}</th>
+                <th class="c15t-policy-table__th">
+                  {{ headers.name }}
+                </th>
+                <th class="c15t-policy-table__th">
+                  {{ headers.provider }}
+                </th>
+                <th class="c15t-policy-table__th">
+                  {{ headers.purpose }}
+                </th>
+                <th class="c15t-policy-table__th">
+                  {{ headers.expiry }}
+                </th>
+                <th class="c15t-policy-table__th">
+                  {{ headers.type }}
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -65,11 +75,21 @@ const headers = computed(() => {
                 :key="cookie.name"
                 class="c15t-policy-table__row"
               >
-                <td class="c15t-policy-table__td c15t-policy-table__td--name">{{ cookie.name }}</td>
-                <td class="c15t-policy-table__td">{{ cookie.vendor }}</td>
-                <td class="c15t-policy-table__td c15t-policy-table__td--purpose">{{ cookie.purpose }}</td>
-                <td class="c15t-policy-table__td c15t-policy-table__td--nowrap">{{ cookie.duration }}</td>
-                <td class="c15t-policy-table__td">{{ cookie.type }}</td>
+                <td class="c15t-policy-table__td c15t-policy-table__td--name">
+                  {{ cookie.name }}
+                </td>
+                <td class="c15t-policy-table__td">
+                  {{ cookie.vendor }}
+                </td>
+                <td class="c15t-policy-table__td c15t-policy-table__td--purpose">
+                  {{ cookie.purpose }}
+                </td>
+                <td class="c15t-policy-table__td c15t-policy-table__td--nowrap">
+                  {{ cookie.duration }}
+                </td>
+                <td class="c15t-policy-table__td">
+                  {{ cookie.type }}
+                </td>
               </tr>
             </tbody>
           </table>

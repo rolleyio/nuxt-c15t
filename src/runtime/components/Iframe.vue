@@ -30,7 +30,10 @@ const frameText = computed(() => {
 
 <template>
   <div>
-    <slot :has-consent="hasConsent" :category-title="categoryTitle">
+    <slot
+      :has-consent="hasConsent"
+      :category-title="categoryTitle"
+    >
       <iframe
         v-if="hasConsent"
         :src="props.src"

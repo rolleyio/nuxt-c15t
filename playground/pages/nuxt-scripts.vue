@@ -28,8 +28,12 @@ const metaScript = useScript('https://connect.facebook.net/en_US/fbevents.js', {
       <UCard>
         <div class="flex items-center justify-between mb-2">
           <div>
-            <div class="font-medium">Google Analytics</div>
-            <div class="text-xs text-gray-500">Requires <code>measurement</code> consent</div>
+            <div class="font-medium">
+              Google Analytics
+            </div>
+            <div class="text-xs text-gray-500">
+              Requires <code>measurement</code> consent
+            </div>
           </div>
           <UBadge
             :color="gaScript.status.value === 'loaded' ? 'success' : gaScript.status.value === 'loading' ? 'warning' : 'neutral'"
@@ -51,8 +55,12 @@ const metaScript = useScript('https://connect.facebook.net/en_US/fbevents.js', {
       <UCard>
         <div class="flex items-center justify-between mb-2">
           <div>
-            <div class="font-medium">Meta Pixel</div>
-            <div class="text-xs text-gray-500">Requires <code>marketing</code> consent</div>
+            <div class="font-medium">
+              Meta Pixel
+            </div>
+            <div class="text-xs text-gray-500">
+              Requires <code>marketing</code> consent
+            </div>
           </div>
           <UBadge
             :color="metaScript.status.value === 'loaded' ? 'success' : metaScript.status.value === 'loading' ? 'warning' : 'neutral'"
@@ -73,7 +81,9 @@ const metaScript = useScript('https://connect.facebook.net/en_US/fbevents.js', {
     </div>
 
     <UCard>
-      <h3 class="font-semibold mb-2">Code</h3>
+      <h3 class="font-semibold mb-2">
+        Code
+      </h3>
       <pre class="text-xs overflow-x-auto">const gaScript = useScript(
   'https://www.googletagmanager.com/gtag/js?id=G-XXXXXX',
   { trigger: useC15tScriptTrigger('measurement') }

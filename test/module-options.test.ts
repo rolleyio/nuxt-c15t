@@ -53,7 +53,7 @@ describe('module options: iframeBlocking', () => {
 
 describe('module options: mode resolution', () => {
   // Simulates the logic from plugin.client.ts
-  function buildModeConfig(config: { mode: 'hosted' | 'offline' | 'self-hosted'; backendURL: string }) {
+  function buildModeConfig(config: { mode: 'hosted' | 'offline' | 'self-hosted', backendURL: string }) {
     return config.mode === 'offline'
       ? { mode: 'offline' as const }
       : { mode: 'hosted' as const, backendURL: config.backendURL }

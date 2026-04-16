@@ -9,12 +9,12 @@ const hasFullTracking = has({ and: ['measurement', 'marketing'] })
 const hasAllOptional = has({ and: ['measurement', 'marketing', 'functionality'] })
 
 const conditions = computed(() => [
-  { label: 'Measurement', code: "has('measurement')", result: hasMeasurement.value },
-  { label: 'Marketing', code: "has('marketing')", result: hasMarketing.value },
-  { label: 'Functionality', code: "has('functionality')", result: hasFunctionality.value },
-  { label: 'Any analytics (OR)', code: "has({ or: ['measurement', 'marketing'] })", result: hasAnyAnalytics.value, compound: true },
-  { label: 'Full tracking (AND)', code: "has({ and: ['measurement', 'marketing'] })", result: hasFullTracking.value, compound: true },
-  { label: 'All optional (AND)', code: "has({ and: ['measurement', 'marketing', 'functionality'] })", result: hasAllOptional.value, compound: true },
+  { label: 'Measurement', code: 'has(\'measurement\')', result: hasMeasurement.value },
+  { label: 'Marketing', code: 'has(\'marketing\')', result: hasMarketing.value },
+  { label: 'Functionality', code: 'has(\'functionality\')', result: hasFunctionality.value },
+  { label: 'Any analytics (OR)', code: 'has({ or: [\'measurement\', \'marketing\'] })', result: hasAnyAnalytics.value, compound: true },
+  { label: 'Full tracking (AND)', code: 'has({ and: [\'measurement\', \'marketing\'] })', result: hasFullTracking.value, compound: true },
+  { label: 'All optional (AND)', code: 'has({ and: [\'measurement\', \'marketing\', \'functionality\'] })', result: hasAllOptional.value, compound: true },
 ])
 </script>
 
@@ -47,9 +47,15 @@ const conditions = computed(() => [
       <table class="w-full text-sm">
         <thead>
           <tr class="border-b border-gray-200">
-            <th class="text-left py-2 px-3 text-gray-500 font-medium">Condition</th>
-            <th class="text-left py-2 px-3 text-gray-500 font-medium">Code</th>
-            <th class="text-center py-2 px-3 text-gray-500 font-medium">Result</th>
+            <th class="text-left py-2 px-3 text-gray-500 font-medium">
+              Condition
+            </th>
+            <th class="text-left py-2 px-3 text-gray-500 font-medium">
+              Code
+            </th>
+            <th class="text-center py-2 px-3 text-gray-500 font-medium">
+              Result
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -59,10 +65,21 @@ const conditions = computed(() => [
             class="border-b border-gray-100"
             :class="{ 'bg-yellow-50': c.compound }"
           >
-            <td class="py-2 px-3" :class="{ 'font-medium': c.compound }">{{ c.label }}</td>
-            <td class="py-2 px-3 font-mono text-xs">{{ c.code }}</td>
+            <td
+              class="py-2 px-3"
+              :class="{ 'font-medium': c.compound }"
+            >
+              {{ c.label }}
+            </td>
+            <td class="py-2 px-3 font-mono text-xs">
+              {{ c.code }}
+            </td>
             <td class="py-2 px-3 text-center">
-              <UBadge :color="c.result ? 'success' : 'error'" variant="subtle" size="xs">
+              <UBadge
+                :color="c.result ? 'success' : 'error'"
+                variant="subtle"
+                size="xs"
+              >
                 {{ c.result }}
               </UBadge>
             </td>

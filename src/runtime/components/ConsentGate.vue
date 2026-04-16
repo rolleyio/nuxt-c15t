@@ -27,7 +27,12 @@ const frameText = computed(() => {
 
 <template>
   <slot v-if="hasConsent" />
-  <slot v-else name="fallback" :condition-label="conditionLabel" :has-consent="hasConsent">
+  <slot
+    v-else
+    name="fallback"
+    :condition-label="conditionLabel"
+    :has-consent="hasConsent"
+  >
     <div class="c15t-consent-gate">
       <p class="c15t-consent-gate__title">
         {{ frameText }}

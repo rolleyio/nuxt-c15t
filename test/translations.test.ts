@@ -8,7 +8,7 @@ interface ResolvedTranslations {
   common: Record<string, string>
   cookieBanner: Record<string, string>
   consentManagerDialog: Record<string, string>
-  consentTypes: Record<string, { title: string; description: string }>
+  consentTypes: Record<string, { title: string, description: string }>
 }
 
 const defaultTranslations: ResolvedTranslations = {
@@ -38,7 +38,7 @@ const defaultTranslations: ResolvedTranslations = {
 
 // Simulates the translation resolution logic from useC15t
 function resolveTranslations(
-  translationConfig: { translations?: Record<string, any>; defaultLanguage?: string } | null,
+  translationConfig: { translations?: Record<string, Record<string, unknown>>, defaultLanguage?: string } | null,
   detectedLanguage?: string,
 ): ResolvedTranslations {
   if (!translationConfig?.translations) return defaultTranslations

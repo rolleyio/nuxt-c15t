@@ -50,13 +50,22 @@ const t = computed(() => {
             </p>
           </div>
           <div class="c15t-banner__actions">
-            <button class="c15t-btn c15t-btn--secondary" @click="acceptNecessary">
+            <button
+              class="c15t-btn c15t-btn--secondary"
+              @click="acceptNecessary"
+            >
               {{ t.rejectAll }}
             </button>
-            <button class="c15t-btn c15t-btn--secondary" @click="openPreferences">
+            <button
+              class="c15t-btn c15t-btn--secondary"
+              @click="openPreferences"
+            >
               {{ t.customize }}
             </button>
-            <button class="c15t-btn c15t-btn--primary" @click="acceptAll">
+            <button
+              class="c15t-btn c15t-btn--primary"
+              @click="acceptAll"
+            >
               {{ t.acceptAll }}
             </button>
           </div>

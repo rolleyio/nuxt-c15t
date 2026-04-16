@@ -36,7 +36,9 @@ export function useC15tScriptTrigger(condition: HasCondition<AllConsentNames>): 
   }
 
   let resolve: (() => void) | undefined
-  const promise = new Promise<void>((r) => { resolve = r })
+  const promise = new Promise<void>((r) => {
+    resolve = r
+  })
 
   const unsubscribe = store.subscribe(() => {
     if (store.getState().has(condition)) {

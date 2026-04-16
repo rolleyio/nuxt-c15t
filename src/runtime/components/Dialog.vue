@@ -74,7 +74,10 @@ function consentTypeDescription(name: string) {
         :accept-all="acceptAll"
         :close="closeDialog"
       >
-        <div class="c15t-dialog__backdrop" @click.self="closeDialog">
+        <div
+          class="c15t-dialog__backdrop"
+          @click.self="closeDialog"
+        >
           <div class="c15t-dialog">
             <div class="c15t-dialog__header">
               <h2 class="c15t-dialog__title">
@@ -118,10 +121,16 @@ function consentTypeDescription(name: string) {
             </div>
 
             <div class="c15t-dialog__actions">
-              <button class="c15t-btn c15t-btn--secondary" @click="saveCustom">
+              <button
+                class="c15t-btn c15t-btn--secondary"
+                @click="saveCustom"
+              >
                 {{ t.save }}
               </button>
-              <button class="c15t-btn c15t-btn--primary" @click="acceptAll">
+              <button
+                class="c15t-btn c15t-btn--primary"
+                @click="acceptAll"
+              >
                 {{ t.acceptAll }}
               </button>
             </div>

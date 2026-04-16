@@ -37,21 +37,28 @@ const t = computed(() => {
       >
         {{ lang.toUpperCase() }}
       </UButton>
-      <UButton size="xs" @click="setActiveUI('banner', { force: true })">
+      <UButton
+        size="xs"
+        @click="setActiveUI('banner', { force: true })"
+      >
         Re-show banner
       </UButton>
     </div>
 
     <div class="grid grid-cols-2 gap-4">
       <UCard>
-        <h3 class="text-sm font-semibold mb-2">Banner</h3>
+        <h3 class="text-sm font-semibold mb-2">
+          Banner
+        </h3>
         <div class="text-sm space-y-1">
           <div><span class="text-gray-500">Title:</span> {{ t.bannerTitle }}</div>
           <div><span class="text-gray-500">Description:</span> {{ t.bannerDescription }}</div>
         </div>
       </UCard>
       <UCard>
-        <h3 class="text-sm font-semibold mb-2">Buttons</h3>
+        <h3 class="text-sm font-semibold mb-2">
+          Buttons
+        </h3>
         <div class="text-sm space-y-1">
           <div><span class="text-gray-500">Accept All:</span> {{ t.acceptAll }}</div>
           <div><span class="text-gray-500">Reject All:</span> {{ t.rejectAll }}</div>

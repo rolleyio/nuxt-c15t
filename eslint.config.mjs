@@ -15,6 +15,10 @@ export default createConfigForNuxt({
     ],
   },
 })
-  .append(
-    // your custom flat config here...
-  )
+  .append({
+    files: ['src/runtime/components/**/*.vue'],
+    rules: {
+      // Components are registered with C15t prefix, so single-word filenames are fine
+      'vue/multi-word-component-names': 'off',
+    },
+  })

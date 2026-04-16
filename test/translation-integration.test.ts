@@ -12,7 +12,7 @@ const defaultTranslations = {
 }
 
 function resolveTranslations(
-  tc: { translations?: Record<string, any>; defaultLanguage?: string; disableAutoLanguageSwitch?: boolean } | null,
+  tc: { translations?: Record<string, Record<string, unknown>>, defaultLanguage?: string, disableAutoLanguageSwitch?: boolean } | null,
   activeLanguage: string | undefined,
 ) {
   if (!tc?.translations) return defaultTranslations

@@ -14,7 +14,10 @@ const { consents, setConsent, resetConsents, getDisplayedConsents, allConsentNam
     </div>
 
     <div class="space-y-3">
-      <UCard v-for="cat in allConsentNames" :key="cat">
+      <UCard
+        v-for="cat in allConsentNames"
+        :key="cat"
+      >
         <div class="flex items-center justify-between">
           <div>
             <div class="font-medium capitalize">
@@ -25,10 +28,20 @@ const { consents, setConsent, resetConsents, getDisplayedConsents, allConsentNam
             </div>
           </div>
           <div class="flex gap-2">
-            <UButton size="xs" color="success" variant="soft" @click="setConsent(cat, true)">
+            <UButton
+              size="xs"
+              color="success"
+              variant="soft"
+              @click="setConsent(cat, true)"
+            >
               Grant
             </UButton>
-            <UButton size="xs" color="error" variant="soft" @click="setConsent(cat, false)">
+            <UButton
+              size="xs"
+              color="error"
+              variant="soft"
+              @click="setConsent(cat, false)"
+            >
               Revoke
             </UButton>
           </div>
@@ -45,14 +58,21 @@ const { consents, setConsent, resetConsents, getDisplayedConsents, allConsentNam
               Always true — cannot be revoked
             </div>
           </div>
-          <UBadge color="success" variant="subtle">
+          <UBadge
+            color="success"
+            variant="subtle"
+          >
             active
           </UBadge>
         </div>
       </UCard>
     </div>
 
-    <UButton color="error" variant="outline" @click="resetConsents()">
+    <UButton
+      color="error"
+      variant="outline"
+      @click="resetConsents()"
+    >
       Reset all consents
     </UButton>
 

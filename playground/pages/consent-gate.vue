@@ -37,7 +37,9 @@ const hasMeasurement = has('measurement')
 
     <div class="grid grid-cols-2 gap-6">
       <div>
-        <h3 class="text-sm font-semibold mb-2">Single condition</h3>
+        <h3 class="text-sm font-semibold mb-2">
+          Single condition
+        </h3>
         <C15tConsentGate condition="marketing">
           <UCard>
             <div class="text-sm text-green-700">
@@ -48,7 +50,9 @@ const hasMeasurement = has('measurement')
       </div>
 
       <div>
-        <h3 class="text-sm font-semibold mb-2">AND condition</h3>
+        <h3 class="text-sm font-semibold mb-2">
+          AND condition
+        </h3>
         <C15tConsentGate :condition="{ and: ['marketing', 'measurement'] }">
           <UCard>
             <div class="text-sm text-green-700">
@@ -59,7 +63,9 @@ const hasMeasurement = has('measurement')
       </div>
 
       <div>
-        <h3 class="text-sm font-semibold mb-2">OR condition</h3>
+        <h3 class="text-sm font-semibold mb-2">
+          OR condition
+        </h3>
         <C15tConsentGate :condition="{ or: ['marketing', 'measurement'] }">
           <UCard>
             <div class="text-sm text-green-700">
@@ -70,10 +76,14 @@ const hasMeasurement = has('measurement')
       </div>
 
       <div>
-        <h3 class="text-sm font-semibold mb-2">Custom fallback slot</h3>
+        <h3 class="text-sm font-semibold mb-2">
+          Custom fallback slot
+        </h3>
         <C15tConsentGate condition="marketing">
           <UCard>
-            <div class="text-sm text-green-700">Marketing widget loaded!</div>
+            <div class="text-sm text-green-700">
+              Marketing widget loaded!
+            </div>
           </UCard>
 
           <template #fallback="{ conditionLabel }">
@@ -88,8 +98,13 @@ const hasMeasurement = has('measurement')
     </div>
 
     <UCard>
-      <h3 class="font-semibold mb-2">Code</h3>
-      <pre class="text-xs overflow-x-auto" v-pre>&lt;C15tConsentGate condition="marketing"&gt;
+      <h3 class="font-semibold mb-2">
+        Code
+      </h3>
+      <pre
+        v-pre
+        class="text-xs overflow-x-auto"
+      >&lt;C15tConsentGate condition="marketing"&gt;
   &lt;ThirdPartyWidget /&gt;
 
   &lt;template #fallback="{ conditionLabel }"&gt;

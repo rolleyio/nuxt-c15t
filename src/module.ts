@@ -1,4 +1,4 @@
-import { defineNuxtModule, addPlugin, addImportsDir, addComponentsDir, addTemplate, createResolver } from '@nuxt/kit'
+import { defineNuxtModule, addPlugin, addImportsDir, addComponentsDir, createResolver } from '@nuxt/kit'
 import type { CookiePolicyConfig, TranslationConfig } from './runtime/utils/types'
 
 export interface ModuleOptions {

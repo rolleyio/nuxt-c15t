@@ -65,7 +65,9 @@ const hasMeasurement = has('measurement')
     </div>
 
     <UCard>
-      <h3 class="font-semibold mb-2">Code</h3>
+      <h3 class="font-semibold mb-2">
+        Code
+      </h3>
       <pre class="text-xs overflow-x-auto">&lt;C15tIframe
   src="https://www.youtube-nocookie.com/embed/VIDEO_ID"
   category="marketing"

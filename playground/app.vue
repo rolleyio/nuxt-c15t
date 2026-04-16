@@ -17,43 +17,49 @@ const pages = [
 <template>
   <UApp>
     <UContainer class="py-8">
-    <div class="flex items-center justify-between mb-6">
-      <h1 class="text-xl font-bold">
-        nuxt-c15t Playground
-      </h1>
-    </div>
-
-    <UNavigationMenu :items="pages.map(p => ({ label: p.label, to: p.path }))" class="mb-6" />
-
-    <UCard class="mb-6">
-      <div class="flex items-center gap-3 flex-wrap text-xs">
-        <span class="font-semibold text-gray-500">State:</span>
-        <UBadge
-          v-for="(value, key) in consents"
-          :key="key"
-          :color="value ? 'success' : 'error'"
-          variant="subtle"
-        >
-          {{ key }}: {{ value ? 'yes' : 'no' }}
-        </UBadge>
-        <UBadge color="info" variant="subtle">
-          ui: {{ activeUI }}
-        </UBadge>
-        <UButton
-          size="xs"
-          variant="outline"
-          class="ml-auto"
-          @click="setActiveUI('banner', { force: true })"
-        >
-          Re-show banner
-        </UButton>
+      <div class="flex items-center justify-between mb-6">
+        <h1 class="text-xl font-bold">
+          nuxt-c15t Playground
+        </h1>
       </div>
-    </UCard>
 
-    <NuxtPage />
+      <UNavigationMenu
+        :items="pages.map(p => ({ label: p.label, to: p.path }))"
+        class="mb-6"
+      />
 
-    <C15tBanner />
-    <C15tDialog />
+      <UCard class="mb-6">
+        <div class="flex items-center gap-3 flex-wrap text-xs">
+          <span class="font-semibold text-gray-500">State:</span>
+          <UBadge
+            v-for="(value, key) in consents"
+            :key="key"
+            :color="value ? 'success' : 'error'"
+            variant="subtle"
+          >
+            {{ key }}: {{ value ? 'yes' : 'no' }}
+          </UBadge>
+          <UBadge
+            color="info"
+            variant="subtle"
+          >
+            ui: {{ activeUI }}
+          </UBadge>
+          <UButton
+            size="xs"
+            variant="outline"
+            class="ml-auto"
+            @click="setActiveUI('banner', { force: true })"
+          >
+            Re-show banner
+          </UButton>
+        </div>
+      </UCard>
+
+      <NuxtPage />
+
+      <C15tBanner />
+      <C15tDialog />
     </UContainer>
   </UApp>
 </template>
