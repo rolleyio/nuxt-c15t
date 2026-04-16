@@ -33,6 +33,7 @@ export default defineConfig({
       {
         text: 'Components',
         items: [
+          { text: 'C15tConsentManager', link: '/components/consent-manager' },
           { text: 'C15tBanner', link: '/components/banner' },
           { text: 'C15tDialog', link: '/components/dialog' },
           { text: 'C15tCookiePolicy', link: '/components/cookie-policy' },

@@ -1,49 +1,28 @@
-name: ci
+name: CI
 
 on:
-  push:
-    branches:
-      - main
   pull_request:
-    branches:
-      - main
+    branches: [main, next]
+  push:
+    branches: [main, next]
 
 jobs:
-  lint:
+  ci:
     runs-on: ubuntu-latest
-
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v6
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: lts/*
+          cache: pnpm
 
-      - run: npm i -g --force corepack@latest && corepack enable
+      - run: pnpm install
 
-      - name: Install dependencies
-        run: npx nypm@latest i
+      - run: pnpm run lint
 
-      - name: Lint
-        run: npm run lint
+      - run: pnpm run dev:prepare
 
-  test:
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v6
-
-      - uses: actions/setup-node@v6
-        with:
-          node-version: 20
-
-      - run: npm i -g --force corepack@latest && corepack enable
-
-      - name: Install dependencies
-        run: npx nypm@latest i
-
-      - name: Playground prepare
-        run: npm run dev:prepare
-
-      - name: Test
-        run: npm run test
+      - run: pnpm run test

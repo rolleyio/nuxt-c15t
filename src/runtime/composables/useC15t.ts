@@ -44,10 +44,10 @@ export function useC15t() {
   const activeUI = computed<ActiveUI>(() => storeState.value?.activeUI ?? 'none')
   const isLoading = computed(() => storeState.value?.isLoadingConsentInfo ?? true)
   const hasConsented = computed(() => storeState.value?.hasConsented() ?? false)
-  const consentTypes = computed(() => storeState.value?.consentTypes ?? [])
-  const legalLinks = computed(() => storeState.value?.legalLinks ?? null)
-  const locationInfo = computed(() => storeState.value?.locationInfo ?? null)
-  const consentInfo = computed(() => storeState.value?.consentInfo ?? null)
+  const consentTypes = computed<ConsentStoreState['consentTypes']>(() => storeState.value?.consentTypes ?? [])
+  const legalLinks = computed<ConsentStoreState['legalLinks'] | null>(() => storeState.value?.legalLinks ?? null)
+  const locationInfo = computed<ConsentStoreState['locationInfo']>(() => storeState.value?.locationInfo ?? null)
+  const consentInfo = computed(() => storeState.value?.consentInfo as { time: number; subjectId: string; externalId?: string | null; type: string } | null ?? null)
 
   const translations = computed(() => {
     const tc = storeState.value?.translationConfig
