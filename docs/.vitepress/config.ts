@@ -19,6 +19,7 @@ export default defineConfig({
           { text: 'Nuxt Scripts', link: '/guide/nuxt-scripts' },
           { text: 'Translations', link: '/guide/translations' },
           { text: 'Iframe Blocking', link: '/guide/iframe-blocking' },
+          { text: 'Network Blocker', link: '/guide/network-blocker' },
         ],
       },
       {

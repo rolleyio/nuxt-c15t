@@ -1,5 +1,5 @@
 import { computed, shallowRef, onMounted, onScopeDispose } from '#imports'
-import type { AllConsentNames, ConsentStoreState, ActiveUI, HasCondition } from 'c15t'
+import type { AllConsentNames, ConsentStoreState, ActiveUI, HasCondition, NetworkBlockerConfig } from 'c15t'
 import { has as evaluateCondition, allConsentNames } from 'c15t'
 import { useC15tStore } from '../utils/store'
 
@@ -102,6 +102,10 @@ export function useC15t() {
     return store?.getState().subscribeToConsentChanges(listener) ?? (() => {})
   }
 
+  function setNetworkBlocker(config: NetworkBlockerConfig | undefined) {
+    store?.getState().setNetworkBlocker(config)
+  }
+
   return {
     allConsentNames,
     // Reactive state
@@ -125,5 +129,6 @@ export function useC15t() {
     setLanguage,
     identifyUser,
     onConsentChanged,
+    setNetworkBlocker,
   }
 }

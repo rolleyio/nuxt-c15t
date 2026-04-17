@@ -1,4 +1,26 @@
-import type { AllConsentNames } from 'c15t'
+import type { AllConsentNames, NetworkBlockerConfig } from 'c15t'
+
+export type { NetworkBlockerConfig } from 'c15t'
+
+/** A single domain rule for the network blocker. */
+export type NetworkBlockerRule = NetworkBlockerConfig['rules'][number]
+
+/** Information about a blocked network request. */
+export type BlockedRequestInfo = Parameters<NonNullable<NetworkBlockerConfig['onRequestBlocked']>>[0]
+
+/**
+ * Serializable subset of NetworkBlockerConfig that can live in nuxt.config.
+ * The `onRequestBlocked` callback is registered at runtime via
+ * `setNetworkBlocker()` from useC15t().
+ */
+export interface NetworkBlockerModuleConfig {
+  /** Whether blocking is active. @default true */
+  enabled?: boolean
+  /** Log each blocked request to the console. @default true */
+  logBlockedRequests?: boolean
+  /** Domain rules that gate outgoing requests by consent category. */
+  rules: NetworkBlockerRule[]
+}
 
 /**
  * A single cookie entry in the cookie policy table.
@@ -72,6 +94,7 @@ export interface C15tRuntimeConfig {
   consentCategories: AllConsentNames[]
   countryOverride: string
   iframeBlocking: boolean
+  networkBlocker: NetworkBlockerModuleConfig | null
   cookiePolicy: CookiePolicyConfig
   translations: TranslationConfig
   prefetchScript: boolean

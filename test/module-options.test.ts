@@ -135,3 +135,70 @@ describe('module options: defaults', () => {
     expect(config.countryOverride).toBe('')
   })
 })
+
+describe('module options: networkBlocker', () => {
+  interface RuntimeInput {
+    networkBlocker: {
+      enabled?: boolean
+      logBlockedRequests?: boolean
+      rules: Array<{ domain: string, category: string }>
+    } | null
+  }
+
+  // Simulates the conditional spread from plugin.client.ts
+  function buildNetworkBlocker(config: RuntimeInput) {
+    const hasNetworkRules = !!config.networkBlocker?.rules?.length
+    return hasNetworkRules
+      ? {
+          networkBlocker: {
+            enabled: config.networkBlocker!.enabled !== false,
+            logBlockedRequests: config.networkBlocker!.logBlockedRequests !== false,
+            rules: config.networkBlocker!.rules,
+          },
+        }
+      : {}
+  }
+
+  it('produces no networkBlocker key when config is null', () => {
+    const result = buildNetworkBlocker({ networkBlocker: null })
+    expect(result).toEqual({})
+  })
+
+  it('produces no networkBlocker key when rules array is empty', () => {
+    const result = buildNetworkBlocker({ networkBlocker: { rules: [] } })
+    expect(result).toEqual({})
+  })
+
+  it('passes through rules when provided', () => {
+    const rules = [{ domain: 'google-analytics.com', category: 'measurement' }]
+    const result = buildNetworkBlocker({ networkBlocker: { rules } })
+    expect(result).toEqual({
+      networkBlocker: {
+        enabled: true,
+        logBlockedRequests: true,
+        rules,
+      },
+    })
+  })
+
+  it('defaults enabled to true when omitted', () => {
+    const result = buildNetworkBlocker({
+      networkBlocker: { rules: [{ domain: 'example.com', category: 'marketing' }] },
+    })
+    expect(result).toHaveProperty('networkBlocker.enabled', true)
+  })
+
+  it('respects enabled: false', () => {
+    const result = buildNetworkBlocker({
+      networkBlocker: { enabled: false, rules: [{ domain: 'example.com', category: 'marketing' }] },
+    })
+    expect(result).toHaveProperty('networkBlocker.enabled', false)
+  })
+
+  it('respects logBlockedRequests: false', () => {
+    const result = buildNetworkBlocker({
+      networkBlocker: { logBlockedRequests: false, rules: [{ domain: 'example.com', category: 'marketing' }] },
+    })
+    expect(result).toHaveProperty('networkBlocker.logBlockedRequests', false)
+  })
+})
