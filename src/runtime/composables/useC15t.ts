@@ -1,5 +1,15 @@
 import { computed, shallowRef, onMounted, onScopeDispose } from '#imports'
-import type { AllConsentNames, ConsentStoreState, ActiveUI, HasCondition } from 'c15t'
+import type {
+  AllConsentNames,
+  ConsentStoreState,
+  ActiveUI,
+  HasCondition,
+  Callbacks,
+  OnBannerFetchedPayload,
+  OnConsentSetPayload,
+  OnConsentChangedPayload,
+  OnErrorPayload,
+} from 'c15t'
 import { has as evaluateCondition, allConsentNames } from 'c15t'
 import { useC15tStore } from '../utils/store'
 
@@ -98,8 +108,36 @@ export function useC15t() {
     store?.getState().identifyUser(user)
   }
 
-  function onConsentChanged(listener: (payload: unknown) => void) {
+  function onConsentChanged(listener: (payload: OnConsentChangedPayload) => void) {
     return store?.getState().subscribeToConsentChanges(listener) ?? (() => {})
+  }
+
+  /**
+   * Register a Callbacks handler. Returns an unsubscribe function that clears
+   * the handler. Only one handler per event is supported — registering again
+   * replaces the previous one.
+   */
+  function on<K extends keyof Callbacks>(event: K, handler: NonNullable<Callbacks[K]>) {
+    store?.getState().setCallback(event, handler)
+    return () => {
+      store?.getState().setCallback(event, undefined)
+    }
+  }
+
+  function onBannerFetched(handler: (payload: OnBannerFetchedPayload) => void) {
+    return on('onBannerFetched', handler)
+  }
+
+  function onConsentSet(handler: (payload: OnConsentSetPayload) => void) {
+    return on('onConsentSet', handler)
+  }
+
+  function onError(handler: (payload: OnErrorPayload) => void) {
+    return on('onError', handler)
+  }
+
+  function onBeforeConsentRevocationReload(handler: (payload: OnConsentSetPayload) => void) {
+    return on('onBeforeConsentRevocationReload', handler)
   }
 
   return {
@@ -124,6 +162,11 @@ export function useC15t() {
     getDisplayedConsents,
     setLanguage,
     identifyUser,
+    on,
+    onBannerFetched,
     onConsentChanged,
+    onConsentSet,
+    onError,
+    onBeforeConsentRevocationReload,
   }
 }
