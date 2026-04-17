@@ -1,3 +1,8 @@
+---
+title: C15tDialog
+description: Headless consent preferences dialog with per-category checkboxes — opened from the banner or setActiveUI('dialog').
+---
+
 # C15tDialog
 
 A headless consent preferences dialog. Shows when the user clicks "Preferences" in the banner or when `setActiveUI('dialog')` is called. Displays checkboxes for each consent category.

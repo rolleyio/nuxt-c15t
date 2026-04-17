@@ -1,3 +1,8 @@
+---
+title: Configuration
+description: Every nuxt-c15t option — mode, consent categories, country overrides, iframe blocking, translations, and the cookie policy schema.
+---
+
 # Configuration
 
 All options are set under the `c15t` key in `nuxt.config.ts`.

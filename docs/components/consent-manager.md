@@ -1,3 +1,8 @@
+---
+title: C15tConsentManager
+description: The recommended one-line drop-in that renders both the consent banner and preferences dialog.
+---
+
 # C15tConsentManager
 
 A convenience component that renders both the consent banner and preferences dialog. This is the recommended way to add consent UI to your app.

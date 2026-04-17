@@ -1,3 +1,8 @@
+---
+title: Getting Started
+description: Install nuxt-c15t, configure consent categories, and wire up the banner and dialog in a few lines of nuxt.config.ts.
+---
+
 # Getting Started
 
 ## Installation

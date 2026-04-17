@@ -1,3 +1,8 @@
+---
+title: Translations
+description: Ship multi-language consent UI — merge custom translations with c15t's built-in strings and switch languages at runtime.
+---
+
 # Translations
 
 `nuxt-c15t` supports multi-language consent UI via the `translations` config option. Custom translations are merged with c15t's built-in English strings.

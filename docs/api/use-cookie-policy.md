@@ -1,3 +1,8 @@
+---
+title: useCookiePolicy
+description: Resolve merged cookie policy data — combines declared vendor cookies with custom entries, grouped by consent category.
+---
+
 # useCookiePolicy
 
 Returns resolved cookie policy data for rendering a cookie policy table. Merges cookies from declared vendors with custom cookies, grouped by consent category.

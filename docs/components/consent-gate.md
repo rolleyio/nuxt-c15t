@@ -1,3 +1,8 @@
+---
+title: C15tConsentGate
+description: Conditionally render content based on consent — show a placeholder until the required category is granted.
+---
+
 # C15tConsentGate
 
 Conditionally renders content based on consent. Shows a placeholder until the required consent is granted.
