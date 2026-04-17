@@ -1,5 +1,5 @@
 import { defineNuxtModule, addPlugin, addImportsDir, addComponentsDir, createResolver } from '@nuxt/kit'
-import type { CookiePolicyConfig, TranslationConfig } from './runtime/utils/types'
+import type { CookiePolicyConfig, PolicyConfig, TranslationConfig } from './runtime/utils/types'
 
 export interface ModuleOptions {
   /**
@@ -35,6 +35,38 @@ export interface ModuleOptions {
    * @default true
    */
   iframeBlocking?: boolean
+
+  /**
+   * Regional policy packs evaluated in offline mode.
+   * Each pack defines the consent model (opt-in / opt-out / none), categories,
+   * and UI to show for a matched country/region. c15t picks the first
+   * matching pack using region > country > default precedence.
+   *
+   * Ignored when `mode !== 'offline'`. In hosted mode the backend resolves
+   * the appropriate pack based on visitor location.
+   *
+   * Use `policyPackPresets` from `c15t` for built-in packs (GDPR, CCPA,
+   * Quebec, IAB TCF, no-banner fallback) or provide custom `PolicyConfig[]`.
+   *
+   * @example
+   * ```ts
+   * import { policyPackPresets } from 'c15t'
+   *
+   * export default defineNuxtConfig({
+   *   c15t: {
+   *     mode: 'offline',
+   *     policyPacks: [
+   *       policyPackPresets.europeOptIn(),
+   *       policyPackPresets.californiaOptOut(),
+   *       policyPackPresets.worldNoBanner(),
+   *     ],
+   *   },
+   * })
+   * ```
+   *
+   * @see https://c15t.com/docs/frameworks/javascript/policy-packs
+   */
+  policyPacks?: PolicyConfig[]
 
   /**
    * Enable Nuxt Scripts integration.
@@ -112,6 +144,7 @@ export default defineNuxtModule<ModuleOptions>({
         consentCategories: options.consentCategories ?? ['necessary', 'measurement', 'marketing'],
         countryOverride: options.countryOverride ?? '',
         iframeBlocking: options.iframeBlocking ?? true,
+        policyPacks: options.policyPacks && options.policyPacks.length > 0 ? options.policyPacks : null,
         cookiePolicy: options.cookiePolicy ?? {},
         translations: options.translations ?? {},
         prefetchScript: options.prefetchScript ?? true,

@@ -135,3 +135,57 @@ describe('module options: defaults', () => {
     expect(config.countryOverride).toBe('')
   })
 })
+
+describe('module options: policyPacks', () => {
+  interface RuntimeInput {
+    mode: 'hosted' | 'offline' | 'self-hosted'
+    policyPacks: Array<{ id: string }> | null
+  }
+
+  // Simulates the conditional offlinePolicy spread from plugin.client.ts
+  function buildOfflinePolicy(config: RuntimeInput) {
+    const hasOfflinePolicyPacks = config.mode === 'offline' && !!config.policyPacks?.length
+    return hasOfflinePolicyPacks
+      ? { offlinePolicy: { policyPacks: config.policyPacks! } }
+      : {}
+  }
+
+  it('produces no offlinePolicy when mode is hosted even with packs', () => {
+    const result = buildOfflinePolicy({ mode: 'hosted', policyPacks: [{ id: 'europe_opt_in' }] })
+    expect(result).toEqual({})
+  })
+
+  it('produces no offlinePolicy when policyPacks is null', () => {
+    const result = buildOfflinePolicy({ mode: 'offline', policyPacks: null })
+    expect(result).toEqual({})
+  })
+
+  it('produces no offlinePolicy when policyPacks is empty', () => {
+    const result = buildOfflinePolicy({ mode: 'offline', policyPacks: [] })
+    expect(result).toEqual({})
+  })
+
+  it('passes policyPacks through in offline mode', () => {
+    const packs = [{ id: 'europe_opt_in' }, { id: 'world_no_banner' }]
+    const result = buildOfflinePolicy({ mode: 'offline', policyPacks: packs })
+    expect(result).toEqual({ offlinePolicy: { policyPacks: packs } })
+  })
+
+  // Simulates the module.ts normalization
+  function normalize(options: { policyPacks?: Array<{ id: string }> }) {
+    return options.policyPacks && options.policyPacks.length > 0 ? options.policyPacks : null
+  }
+
+  it('normalizes empty array to null', () => {
+    expect(normalize({ policyPacks: [] })).toBeNull()
+  })
+
+  it('normalizes missing field to null', () => {
+    expect(normalize({})).toBeNull()
+  })
+
+  it('preserves non-empty packs array', () => {
+    const packs = [{ id: 'europe_opt_in' }]
+    expect(normalize({ policyPacks: packs })).toBe(packs)
+  })
+})

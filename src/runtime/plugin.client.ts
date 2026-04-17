@@ -10,11 +10,16 @@ export default defineNuxtPlugin(() => {
     ? { mode: 'offline' as const }
     : { mode: 'hosted' as const, backendURL: config.backendURL }
 
+  const hasOfflinePolicyPacks = config.mode === 'offline' && !!config.policyPacks?.length
+
   const { consentStore } = getOrCreateConsentRuntime({
     ...modeConfig,
     consentCategories: config.consentCategories,
     ...(config.countryOverride && { overrides: { country: config.countryOverride } }),
     iframeBlockerConfig: config.iframeBlocking ? {} : { disableAutomaticBlocking: true },
+    ...(hasOfflinePolicyPacks && {
+      offlinePolicy: { policyPacks: config.policyPacks! },
+    }),
   }, {
     pkg: 'nuxt-c15t',
     version: '1.0.0',

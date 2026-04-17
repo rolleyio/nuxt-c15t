@@ -1,4 +1,38 @@
-import type { AllConsentNames } from 'c15t'
+import type { AllConsentNames, PolicyConfig } from 'c15t'
+
+export type { PolicyConfig } from 'c15t'
+
+/**
+ * Offline-mode policy configuration. Mirrors c15t's OfflinePolicyConfig,
+ * restricted to the JSON-serializable subset that survives runtimeConfig.
+ *
+ * Ignored when `mode !== 'offline'`. In hosted mode the backend resolves
+ * the appropriate pack based on visitor location.
+ *
+ * @see https://c15t.com/docs/frameworks/javascript/policy-packs
+ */
+export interface PolicyPackModuleConfig {
+  /**
+   * Policy packs evaluated in offline mode using region > country > default
+   * precedence. Use `policyPackPresets` from `c15t` to get built-in
+   * GDPR / CCPA / etc. packs, or provide your own `PolicyConfig[]`.
+   *
+   * @example
+   * ```ts
+   * import { policyPackPresets } from 'c15t'
+   *
+   * c15t: {
+   *   mode: 'offline',
+   *   policyPacks: [
+   *     policyPackPresets.europeOptIn(),
+   *     policyPackPresets.californiaOptOut(),
+   *     policyPackPresets.worldNoBanner(),
+   *   ],
+   * }
+   * ```
+   */
+  policyPacks: PolicyConfig[]
+}
 
 /**
  * A single cookie entry in the cookie policy table.
@@ -72,6 +106,7 @@ export interface C15tRuntimeConfig {
   consentCategories: AllConsentNames[]
   countryOverride: string
   iframeBlocking: boolean
+  policyPacks: PolicyConfig[] | null
   cookiePolicy: CookiePolicyConfig
   translations: TranslationConfig
   prefetchScript: boolean
