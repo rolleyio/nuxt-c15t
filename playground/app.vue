@@ -13,6 +13,7 @@ const pages = [
   { path: '/consent-gate', label: 'Consent Gate' },
   { path: '/translations', label: 'Translations' },
   { path: '/callbacks', label: 'Callbacks' },
+  { path: '/widgets', label: 'Widgets' },
   { path: '/advanced', label: 'Advanced' },
 ]
 </script>
@@ -63,6 +64,7 @@ const pages = [
 
       <C15tBanner />
       <C15tDialog />
+      <C15tDialogTrigger show-when="after-consent" />
     </UContainer>
   </UApp>
 </template>
