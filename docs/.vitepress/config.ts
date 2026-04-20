@@ -18,10 +18,23 @@ export default defineConfig({
           { text: 'Configuration', link: '/guide/configuration' },
           { text: 'Nuxt Scripts', link: '/guide/nuxt-scripts' },
           { text: 'Translations', link: '/guide/translations' },
+          { text: 'Internationalization', link: '/guide/internationalization' },
           { text: 'Iframe Blocking', link: '/guide/iframe-blocking' },
           { text: 'Network Blocker', link: '/guide/network-blocker' },
           { text: 'Policy Packs', link: '/guide/policy-packs' },
           { text: 'Callbacks', link: '/guide/callbacks' },
+          { text: 'Troubleshooting', link: '/guide/troubleshooting' },
+        ],
+      },
+      {
+        text: 'Concepts',
+        items: [
+          { text: 'Initialization Flow', link: '/concepts/initialization-flow' },
+          { text: 'Client Modes', link: '/concepts/client-modes' },
+          { text: 'Consent Models', link: '/concepts/consent-models' },
+          { text: 'Consent Categories', link: '/concepts/consent-categories' },
+          { text: 'Cookie Management', link: '/concepts/cookie-management' },
+          { text: 'Glossary', link: '/concepts/glossary' },
         ],
       },
       {
