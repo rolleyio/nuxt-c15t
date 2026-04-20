@@ -1,3 +1,5 @@
+import { policyPackPresets } from 'c15t'
+
 export default defineNuxtConfig({
   modules: ['../src/module', '@nuxt/scripts', '@nuxt/ui'],
   devtools: { enabled: true },
@@ -14,6 +16,12 @@ export default defineNuxtConfig({
         { id: 'fb', domain: 'facebook.com', category: 'marketing', pathIncludes: '/tr' },
       ],
     },
+    policyPacks: [
+      policyPackPresets.europeOptIn(),
+      policyPackPresets.californiaOptOut(),
+      policyPackPresets.quebecOptIn(),
+      policyPackPresets.worldNoBanner(),
+    ],
     translations: {
       translations: {
         de: {

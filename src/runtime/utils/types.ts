@@ -1,6 +1,6 @@
-import type { AllConsentNames, NetworkBlockerConfig } from 'c15t'
+import type { AllConsentNames, NetworkBlockerConfig, PolicyConfig } from 'c15t'
 
-export type { NetworkBlockerConfig } from 'c15t'
+export type { NetworkBlockerConfig, PolicyConfig } from 'c15t'
 
 /** A single domain rule for the network blocker. */
 export type NetworkBlockerRule = NetworkBlockerConfig['rules'][number]
@@ -20,6 +20,38 @@ export interface NetworkBlockerModuleConfig {
   logBlockedRequests?: boolean
   /** Domain rules that gate outgoing requests by consent category. */
   rules: NetworkBlockerRule[]
+}
+
+/**
+ * Offline-mode policy configuration. Mirrors c15t's OfflinePolicyConfig,
+ * restricted to the JSON-serializable subset that survives runtimeConfig.
+ *
+ * Ignored when `mode !== 'offline'`. In hosted mode the backend resolves
+ * the appropriate pack based on visitor location.
+ *
+ * @see https://c15t.com/docs/frameworks/javascript/policy-packs
+ */
+export interface PolicyPackModuleConfig {
+  /**
+   * Policy packs evaluated in offline mode using region > country > default
+   * precedence. Use `policyPackPresets` from `c15t` to get built-in
+   * GDPR / CCPA / etc. packs, or provide your own `PolicyConfig[]`.
+   *
+   * @example
+   * ```ts
+   * import { policyPackPresets } from 'c15t'
+   *
+   * c15t: {
+   *   mode: 'offline',
+   *   policyPacks: [
+   *     policyPackPresets.europeOptIn(),
+   *     policyPackPresets.californiaOptOut(),
+   *     policyPackPresets.worldNoBanner(),
+   *   ],
+   * }
+   * ```
+   */
+  policyPacks: PolicyConfig[]
 }
 
 /**
@@ -97,6 +129,7 @@ export interface C15tRuntimeConfig {
   countryOverride: string
   iframeBlocking: boolean
   networkBlocker: NetworkBlockerModuleConfig | null
+  policyPacks: PolicyConfig[] | null
   cookiePolicy: CookiePolicyConfig
   prefetchScript: boolean
   version: string

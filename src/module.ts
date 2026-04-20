@@ -13,7 +13,7 @@ import {
   createResolver,
   hasNuxtModule,
 } from '@nuxt/kit'
-import type { CookiePolicyConfig, NetworkBlockerModuleConfig, TranslationConfig } from './runtime/utils/types'
+import type { CookiePolicyConfig, NetworkBlockerModuleConfig, PolicyConfig, TranslationConfig } from './runtime/utils/types'
 
 export interface ModuleOptions {
   /**
@@ -70,6 +70,38 @@ export interface ModuleOptions {
    * ```
    */
   networkBlocker?: NetworkBlockerModuleConfig
+
+  /**
+   * Regional policy packs evaluated in offline mode.
+   * Each pack defines the consent model (opt-in / opt-out / none), categories,
+   * and UI to show for a matched country/region. c15t picks the first
+   * matching pack using region > country > default precedence.
+   *
+   * Ignored when `mode !== 'offline'`. In hosted mode the backend resolves
+   * the appropriate pack based on visitor location.
+   *
+   * Use `policyPackPresets` from `c15t` for built-in packs (GDPR, CCPA,
+   * Quebec, IAB TCF, no-banner fallback) or provide custom `PolicyConfig[]`.
+   *
+   * @example
+   * ```ts
+   * import { policyPackPresets } from 'c15t'
+   *
+   * export default defineNuxtConfig({
+   *   c15t: {
+   *     mode: 'offline',
+   *     policyPacks: [
+   *       policyPackPresets.europeOptIn(),
+   *       policyPackPresets.californiaOptOut(),
+   *       policyPackPresets.worldNoBanner(),
+   *     ],
+   *   },
+   * })
+   * ```
+   *
+   * @see https://c15t.com/docs/frameworks/javascript/policy-packs
+   */
+  policyPacks?: PolicyConfig[]
 
   /**
    * Enable Nuxt Scripts integration. Only takes effect when
@@ -183,6 +215,7 @@ export default defineNuxtModule<ModuleOptions>({
         countryOverride: options.countryOverride ?? '',
         iframeBlocking: options.iframeBlocking ?? true,
         networkBlocker: options.networkBlocker ?? null,
+        policyPacks: options.policyPacks && options.policyPacks.length > 0 ? options.policyPacks : null,
         cookiePolicy: options.cookiePolicy ?? {},
         prefetchScript: options.prefetchScript ?? true,
         version: pkg.version,

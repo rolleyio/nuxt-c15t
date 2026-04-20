@@ -7,6 +7,7 @@ const pages = [
   { path: '/toggles', label: 'Toggles' },
   { path: '/iframe-blocking', label: 'Iframe Blocking' },
   { path: '/network-blocker', label: 'Network Blocker' },
+  { path: '/policy-packs', label: 'Policy Packs' },
   { path: '/nuxt-scripts', label: 'Nuxt Scripts' },
   { path: '/compound-conditions', label: 'Compound Conditions' },
   { path: '/consent-gate', label: 'Consent Gate' },

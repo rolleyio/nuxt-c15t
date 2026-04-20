@@ -20,6 +20,7 @@ export default defineConfig({
           { text: 'Translations', link: '/guide/translations' },
           { text: 'Iframe Blocking', link: '/guide/iframe-blocking' },
           { text: 'Network Blocker', link: '/guide/network-blocker' },
+          { text: 'Policy Packs', link: '/guide/policy-packs' },
         ],
       },
       {

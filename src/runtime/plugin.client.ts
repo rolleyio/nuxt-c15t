@@ -17,6 +17,7 @@ export default defineNuxtPlugin((nuxtApp) => {
     : { mode: 'hosted' as const, backendURL: config.backendURL }
 
   const hasNetworkRules = !!config.networkBlocker?.rules?.length
+  const hasOfflinePolicyPacks = config.mode === 'offline' && !!config.policyPacks?.length
 
   const { consentStore } = getOrCreateConsentRuntime({
     ...modeConfig,
@@ -29,6 +30,9 @@ export default defineNuxtPlugin((nuxtApp) => {
         logBlockedRequests: config.networkBlocker!.logBlockedRequests !== false,
         rules: config.networkBlocker!.rules,
       },
+    }),
+    ...(hasOfflinePolicyPacks && {
+      offlinePolicy: { policyPacks: config.policyPacks! },
     }),
   }, {
     pkg: 'nuxt-c15t',
