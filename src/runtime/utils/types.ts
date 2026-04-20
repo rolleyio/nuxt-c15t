@@ -1,4 +1,58 @@
-import type { AllConsentNames } from 'c15t'
+import type { AllConsentNames, NetworkBlockerConfig, PolicyConfig } from 'c15t'
+
+export type { NetworkBlockerConfig, PolicyConfig } from 'c15t'
+
+/** A single domain rule for the network blocker. */
+export type NetworkBlockerRule = NetworkBlockerConfig['rules'][number]
+
+/** Information about a blocked network request. */
+export type BlockedRequestInfo = Parameters<NonNullable<NetworkBlockerConfig['onRequestBlocked']>>[0]
+
+/**
+ * Serializable subset of NetworkBlockerConfig that can live in nuxt.config.
+ * The `onRequestBlocked` callback is registered at runtime via
+ * `setNetworkBlocker()` from useC15t().
+ */
+export interface NetworkBlockerModuleConfig {
+  /** Whether blocking is active. @default true */
+  enabled?: boolean
+  /** Log each blocked request to the console. @default true */
+  logBlockedRequests?: boolean
+  /** Domain rules that gate outgoing requests by consent category. */
+  rules: NetworkBlockerRule[]
+}
+
+/**
+ * Offline-mode policy configuration. Mirrors c15t's OfflinePolicyConfig,
+ * restricted to the JSON-serializable subset that survives runtimeConfig.
+ *
+ * Ignored when `mode !== 'offline'`. In hosted mode the backend resolves
+ * the appropriate pack based on visitor location.
+ *
+ * @see https://c15t.com/docs/frameworks/javascript/policy-packs
+ */
+export interface PolicyPackModuleConfig {
+  /**
+   * Policy packs evaluated in offline mode using region > country > default
+   * precedence. Use `policyPackPresets` from `c15t` to get built-in
+   * GDPR / CCPA / etc. packs, or provide your own `PolicyConfig[]`.
+   *
+   * @example
+   * ```ts
+   * import { policyPackPresets } from 'c15t'
+   *
+   * c15t: {
+   *   mode: 'offline',
+   *   policyPacks: [
+   *     policyPackPresets.europeOptIn(),
+   *     policyPackPresets.californiaOptOut(),
+   *     policyPackPresets.worldNoBanner(),
+   *   ],
+   * }
+   * ```
+   */
+  policyPacks: PolicyConfig[]
+}
 
 /**
  * A single cookie entry in the cookie policy table.
@@ -64,7 +118,9 @@ export interface TranslationConfig {
 }
 
 /**
- * Resolved runtime config passed via runtimeConfig.public.c15t
+ * Resolved runtime config passed via runtimeConfig.public.c15t.
+ * Note: translations are NOT included here — they ship via a virtual
+ * template (`#build/nuxt-c15t-translations.mjs`) to keep the SSR payload small.
  */
 export interface C15tRuntimeConfig {
   mode: 'hosted' | 'offline' | 'self-hosted'
@@ -72,7 +128,14 @@ export interface C15tRuntimeConfig {
   consentCategories: AllConsentNames[]
   countryOverride: string
   iframeBlocking: boolean
+  networkBlocker: NetworkBlockerModuleConfig | null
+  policyPacks: PolicyConfig[] | null
   cookiePolicy: CookiePolicyConfig
-  translations: TranslationConfig
   prefetchScript: boolean
+  version: string
+  cspNonce: string
+  readCspNonceFromRuntimeConfig: boolean
+  scriptsIntegration: boolean
+  serverProxy: boolean
+  serverProxyPath: string
 }

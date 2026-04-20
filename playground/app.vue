@@ -6,10 +6,14 @@ const pages = [
   { path: '/custom-ui', label: 'Custom UI' },
   { path: '/toggles', label: 'Toggles' },
   { path: '/iframe-blocking', label: 'Iframe Blocking' },
+  { path: '/network-blocker', label: 'Network Blocker' },
+  { path: '/policy-packs', label: 'Policy Packs' },
   { path: '/nuxt-scripts', label: 'Nuxt Scripts' },
   { path: '/compound-conditions', label: 'Compound Conditions' },
   { path: '/consent-gate', label: 'Consent Gate' },
   { path: '/translations', label: 'Translations' },
+  { path: '/callbacks', label: 'Callbacks' },
+  { path: '/widgets', label: 'Widgets' },
   { path: '/advanced', label: 'Advanced' },
 ]
 </script>
@@ -22,11 +26,6 @@ const pages = [
           nuxt-c15t Playground
         </h1>
       </div>
-
-      <UNavigationMenu
-        :items="pages.map(p => ({ label: p.label, to: p.path }))"
-        class="mb-6"
-      />
 
       <UCard class="mb-6">
         <div class="flex items-center gap-3 flex-wrap text-xs">
@@ -56,10 +55,21 @@ const pages = [
         </div>
       </UCard>
 
-      <NuxtPage />
+      <div class="grid grid-cols-1 md:grid-cols-[14rem_1fr] gap-6">
+        <aside>
+          <UNavigationMenu
+            :items="pages.map(p => ({ label: p.label, to: p.path }))"
+            orientation="vertical"
+          />
+        </aside>
+        <main class="min-w-0">
+          <NuxtPage />
+        </main>
+      </div>
 
       <C15tBanner />
       <C15tDialog />
+      <C15tDialogTrigger show-when="after-consent" />
     </UContainer>
   </UApp>
 </template>

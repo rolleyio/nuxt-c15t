@@ -1,8 +1,11 @@
+import type { H3Event } from 'h3'
+import { getHeader, parseCookies } from 'h3'
 import type { AllConsentNames } from 'c15t'
-import { useRequestHeaders } from '#app'
 
 /**
- * Cookie key shorthand map used by c15t's cookie encoding.
+ * Shorthand map used by c15t's cookie encoding. If c15t changes this encoding
+ * (it hasn't in any 2.x release so far) the `server-consent.test.ts` round-trip
+ * test will fail loudly.
  */
 const REVERSE_KEY_MAP: Record<string, string> = {
   c: 'consents',
@@ -17,10 +20,13 @@ const REVERSE_KEY_MAP: Record<string, string> = {
   idp: 'identityProvider',
 }
 
-function parseCookieValue(raw: string): Record<string, unknown> {
+/**
+ * Parse the compact `key:value,key:value` payload c15t writes into the cookie.
+ * Exported so tests can exercise it directly.
+ */
+export function parseC15tCookieValue(raw: string): Record<string, unknown> {
   if (!raw.includes(':')) return {}
 
-  // Parse "key:value,key:value" format
   const flat: Record<string, string> = {}
   for (const pair of raw.split(',')) {
     const colonIndex = pair.indexOf(':')
@@ -28,7 +34,6 @@ function parseCookieValue(raw: string): Record<string, unknown> {
     flat[pair.substring(0, colonIndex)] = pair.substring(colonIndex + 1)
   }
 
-  // Expand shortened keys
   const expanded: Record<string, string> = {}
   for (const [key, value] of Object.entries(flat)) {
     const parts = key.split('.')
@@ -36,7 +41,6 @@ function parseCookieValue(raw: string): Record<string, unknown> {
     expanded[expandedParts.join('.')] = value
   }
 
-  // Unflatten into nested object
   const result: Record<string, unknown> = {}
   for (const [key, value] of Object.entries(expanded)) {
     const keys = key.split('.')
@@ -56,40 +60,56 @@ function parseCookieValue(raw: string): Record<string, unknown> {
   return result
 }
 
+export type ConsentCondition = AllConsentNames | { or: AllConsentNames[] } | { and: AllConsentNames[] }
+
+export interface ServerConsentReader {
+  consents: Record<string, boolean>
+  has(condition: ConsentCondition): boolean
+}
+
 /**
- * Server-side composable to read consent state from the request cookie.
+ * Server-side reader for consent state from the request cookie.
  *
- * Use this in server routes, middleware, or SSR rendering to check
- * consent without the full c15t client runtime.
+ * Auto-imported in server routes/middleware/API handlers. Works with h3's
+ * event object — pass it explicitly, or rely on Nuxt's request context.
  *
  * @example
  * ```ts
  * // server/middleware/analytics.ts
  * export default defineEventHandler((event) => {
- *   const consent = useC15tConsent()
+ *   const consent = useC15tConsent(event)
  *   if (consent.has('measurement')) {
  *     // inject analytics
  *   }
  * })
  * ```
  */
-export function useC15tConsent() {
-  const headers = useRequestHeaders(['cookie'])
-  const cookieHeader = headers.cookie ?? ''
-
-  // Parse the c15t cookie
+export function useC15tConsent(event: H3Event): ServerConsentReader {
   let consents: Record<string, boolean> = {}
-  const match = cookieHeader.split(';').find(c => c.trim().startsWith('c15t='))
-  if (match) {
-    const value = match.trim().substring(5) // after "c15t="
-    const parsed = parseCookieValue(decodeURIComponent(value))
+
+  // Prefer h3's parseCookies (handles encoding) but fall back to raw header
+  // if needed — some middleware configurations strip cookies from `event.node.req`.
+  let raw: string | undefined
+  try {
+    raw = parseCookies(event).c15t
+  }
+  catch {
+    const header = getHeader(event, 'cookie') ?? ''
+    const match = header.split(';').find(c => c.trim().startsWith('c15t='))
+    if (match) {
+      raw = decodeURIComponent(match.trim().substring(5))
+    }
+  }
+
+  if (raw) {
+    const parsed = parseC15tCookieValue(raw)
     const rawConsents = parsed.consents as Record<string, boolean> | undefined
     if (rawConsents) {
       consents = rawConsents
     }
   }
 
-  function has(condition: AllConsentNames | { or: AllConsentNames[] } | { and: AllConsentNames[] }): boolean {
+  function has(condition: ConsentCondition): boolean {
     if (typeof condition === 'string') {
       return consents[condition] === true
     }
@@ -102,8 +122,5 @@ export function useC15tConsent() {
     return false
   }
 
-  return {
-    consents,
-    has,
-  }
+  return { consents, has }
 }

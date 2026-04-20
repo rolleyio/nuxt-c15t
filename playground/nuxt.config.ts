@@ -1,3 +1,5 @@
+import { policyPackPresets } from 'c15t'
+
 export default defineNuxtConfig({
   modules: ['../src/module', '@nuxt/scripts', '@nuxt/ui'],
   devtools: { enabled: true },
@@ -8,6 +10,18 @@ export default defineNuxtConfig({
     mode: 'offline',
     consentCategories: ['necessary', 'measurement', 'marketing', 'functionality', 'experience'],
     iframeBlocking: true,
+    networkBlocker: {
+      rules: [
+        { id: 'ga', domain: 'google-analytics.com', category: 'measurement' },
+        { id: 'fb', domain: 'facebook.com', category: 'marketing', pathIncludes: '/tr' },
+      ],
+    },
+    policyPacks: [
+      policyPackPresets.europeOptIn(),
+      policyPackPresets.californiaOptOut(),
+      policyPackPresets.quebecOptIn(),
+      policyPackPresets.worldNoBanner(),
+    ],
     translations: {
       translations: {
         de: {
