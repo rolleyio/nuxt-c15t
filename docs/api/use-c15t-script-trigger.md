@@ -1,3 +1,8 @@
+---
+title: useC15tScriptTrigger
+description: Build a consent-aware trigger Promise for @nuxt/scripts — resolves once the required consent condition is satisfied.
+---
+
 # useC15tScriptTrigger
 
 Returns a `Promise<void>` compatible with `@nuxt/scripts`'s `trigger` option. The promise resolves when the specified consent condition is granted.

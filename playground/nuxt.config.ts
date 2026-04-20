@@ -8,6 +8,12 @@ export default defineNuxtConfig({
     mode: 'offline',
     consentCategories: ['necessary', 'measurement', 'marketing', 'functionality', 'experience'],
     iframeBlocking: true,
+    networkBlocker: {
+      rules: [
+        { id: 'ga', domain: 'google-analytics.com', category: 'measurement' },
+        { id: 'fb', domain: 'facebook.com', category: 'marketing', pathIncludes: '/tr' },
+      ],
+    },
     translations: {
       translations: {
         de: {

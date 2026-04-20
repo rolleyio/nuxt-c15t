@@ -1,3 +1,8 @@
+---
+title: C15tBanner
+description: Headless consent banner — auto-shows for new visitors, with an unstyled default UI or a fully custom slot.
+---
+
 # C15tBanner
 
 A headless consent banner component. Shows automatically when a user hasn't consented yet. Provides a default unstyled UI or accepts a custom slot for full control.

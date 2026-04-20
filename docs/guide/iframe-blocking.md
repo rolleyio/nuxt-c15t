@@ -1,3 +1,8 @@
+---
+title: Iframe Blocking
+description: Gate third-party iframes (YouTube, maps, social embeds) behind consent with the C15tIframe component or automatic data-src blocking.
+---
+
 # Iframe Blocking
 
 Use the [`<C15tIframe>`](/components/iframe) component to gate third-party iframes (YouTube, social embeds, maps) behind a consent category. The iframe only loads once the required consent is granted.

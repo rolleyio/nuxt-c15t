@@ -1,3 +1,8 @@
+---
+title: useC15t
+description: Primary composable for consent management — reactive consent state plus methods to check, grant, and revoke consent.
+---
+
 # useC15t
 
 The primary composable for consent management. Returns reactive consent state and methods for checking, granting, and revoking consent.

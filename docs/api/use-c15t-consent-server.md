@@ -1,3 +1,8 @@
+---
+title: useC15tConsent (server)
+description: Read consent state from the request cookie in server routes, middleware, and during SSR — no client runtime required.
+---
+
 # useC15tConsent (server)
 
 Server-side composable to read consent state from the request cookie. Use this in server routes, middleware, or during SSR to check consent without the full c15t client runtime.

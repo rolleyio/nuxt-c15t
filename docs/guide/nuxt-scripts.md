@@ -1,3 +1,8 @@
+---
+title: Nuxt Scripts Integration
+description: Gate @nuxt/scripts loading behind consent categories — analytics, ads, and embeds only fire once the user opts in.
+---
+
 # Nuxt Scripts Integration
 
 `nuxt-c15t` integrates with [`@nuxt/scripts`](https://scripts.nuxt.com/) to gate third-party script loading behind user consent. Scripts remain unloaded until the relevant consent category is granted.

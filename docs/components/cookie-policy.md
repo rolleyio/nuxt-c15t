@@ -1,3 +1,8 @@
+---
+title: C15tCookiePolicy
+description: Render a cookie policy table grouped by consent category, driven by the cookiePolicy config in nuxt.config.ts.
+---
+
 # C15tCookiePolicy
 
 Renders a cookie policy table grouped by consent category. Driven by the `cookiePolicy` config in `nuxt.config.ts`.

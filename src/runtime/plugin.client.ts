@@ -16,11 +16,20 @@ export default defineNuxtPlugin((nuxtApp) => {
     ? { mode: 'offline' as const }
     : { mode: 'hosted' as const, backendURL: config.backendURL }
 
+  const hasNetworkRules = !!config.networkBlocker?.rules?.length
+
   const { consentStore } = getOrCreateConsentRuntime({
     ...modeConfig,
     consentCategories: config.consentCategories,
     ...(config.countryOverride && { overrides: { country: config.countryOverride } }),
     iframeBlockerConfig: config.iframeBlocking ? {} : { disableAutomaticBlocking: true },
+    ...(hasNetworkRules && {
+      networkBlocker: {
+        enabled: config.networkBlocker!.enabled !== false,
+        logBlockedRequests: config.networkBlocker!.logBlockedRequests !== false,
+        rules: config.networkBlocker!.rules,
+      },
+    }),
   }, {
     pkg: 'nuxt-c15t',
     version: config.version || '0.0.0',

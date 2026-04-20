@@ -13,7 +13,7 @@ import {
   createResolver,
   hasNuxtModule,
 } from '@nuxt/kit'
-import type { CookiePolicyConfig, TranslationConfig } from './runtime/utils/types'
+import type { CookiePolicyConfig, NetworkBlockerModuleConfig, TranslationConfig } from './runtime/utils/types'
 
 export interface ModuleOptions {
   /**
@@ -49,6 +49,27 @@ export interface ModuleOptions {
    * @default true
    */
   iframeBlocking?: boolean
+
+  /**
+   * Block outgoing network requests (fetch + XMLHttpRequest) that target
+   * third-party tracking endpoints until the matching consent category is
+   * granted. Complements iframe and script blocking by catching beacons
+   * fired from already-loaded code.
+   *
+   * To register an `onRequestBlocked` callback, call `setNetworkBlocker()`
+   * from `useC15t()` at runtime — nuxt.config values must be serializable.
+   *
+   * @example
+   * ```ts
+   * networkBlocker: {
+   *   rules: [
+   *     { id: 'ga', domain: 'google-analytics.com', category: 'measurement' },
+   *     { id: 'fb', domain: 'facebook.com', category: 'marketing', pathIncludes: '/tr' },
+   *   ],
+   * }
+   * ```
+   */
+  networkBlocker?: NetworkBlockerModuleConfig
 
   /**
    * Enable Nuxt Scripts integration. Only takes effect when
@@ -161,6 +182,7 @@ export default defineNuxtModule<ModuleOptions>({
         consentCategories: options.consentCategories ?? ['necessary', 'measurement', 'marketing'],
         countryOverride: options.countryOverride ?? '',
         iframeBlocking: options.iframeBlocking ?? true,
+        networkBlocker: options.networkBlocker ?? null,
         cookiePolicy: options.cookiePolicy ?? {},
         prefetchScript: options.prefetchScript ?? true,
         version: pkg.version,
@@ -280,4 +302,3 @@ export {}
     })
   },
 })
-

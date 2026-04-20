@@ -1,3 +1,8 @@
+---
+title: C15tIframe
+description: Consent-gated iframe component — renders a customisable placeholder until the required category is granted, then loads the iframe.
+---
+
 # C15tIframe
 
 A consent-gated iframe component. Shows a placeholder until the required consent category is granted, then loads the iframe.
