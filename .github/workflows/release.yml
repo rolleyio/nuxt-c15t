@@ -25,6 +25,11 @@ jobs:
           registry-url: https://registry.npmjs.org
           cache: pnpm
 
+      # Trusted Publishing requires npm >= 11.5.1. Node 22 ships with npm 10.x,
+      # which silently falls back to anonymous publish and 404s without ever
+      # attempting the OIDC handshake.
+      - run: npm install -g npm@latest
+
       - run: pnpm install --frozen-lockfile
 
       - run: pnpm run lint
