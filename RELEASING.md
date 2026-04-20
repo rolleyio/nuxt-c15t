@@ -26,18 +26,16 @@ pnpm release:next
 
 Adds `--prerelease` to `changelogen` (producing tags like `v0.3.0-beta.1`) and the CI workflow publishes under the `next` npm dist-tag.
 
-### First-time setup in a fresh clone
+### Authentication
 
-- `NPM_TOKEN` must be set as a GitHub Actions secret (Settings → Secrets and variables → Actions).
-- Squash-merge is recommended in repo settings — changelogen reads conventional commits from the PR title that lands on `main`.
+Publishing uses **npm Trusted Publishing** (OIDC) — no `NPM_TOKEN` secret is stored in the repo. The OIDC token is granted by the `id-token: write` permission in `release.yml`, and the npmjs.com package is configured with `rolleyio/nuxt-c15t` + `release.yml` as a Trusted Publisher.
 
-### Switching to npm Trusted Publishing
+If the Trusted Publishing config on npmjs.com ever gets removed or the workflow filename changes, publish will fail with a 403. Re-add the repo as a Trusted Publisher on the package's Access page.
 
-npm Trusted Publishing (OIDC) removes the need for `NPM_TOKEN`. To switch:
+### Repo settings that matter
 
-1. In the npmjs.com package settings → **Trusted Publishers** → add GitHub repo `rolleyio/nuxt-c15t`, workflow `release.yml`, environment (leave blank if not using environments).
-2. Delete the `NODE_AUTH_TOKEN` / `NPM_TOKEN` env var from the publish step in `.github/workflows/release.yml` — `--provenance` and auth are inferred from the GitHub OIDC token (already granted via `id-token: write`).
-3. Publishing still uses `npm publish` (not `pnpm publish` — see [pnpm/pnpm#9812](https://github.com/pnpm/pnpm/issues/9812)).
+- Squash-merge only, with "default commit message = pull request title" — `changelogen` reads conventional commits from the PR title that lands on `main`.
+- Branch protection on `main` should allow tag creation from any commit; no direct pushes are needed for releases (the tag is pushed from your laptop).
 
 ## Troubleshooting
 

@@ -44,12 +44,12 @@ jobs:
           esac
 
       # Use npm (not pnpm) to publish — pnpm's OIDC support is incomplete
-      # (see pnpm/pnpm#9812). Token fallback is used until Trusted Publishing
-      # is configured in npmjs.com for this repo.
+      # (see pnpm/pnpm#9812). Auth is via npm Trusted Publishing: the
+      # OIDC token is provided by `id-token: write` above, and the
+      # rolleyio/nuxt-c15t repo + this workflow are registered as a
+      # Trusted Publisher on npmjs.com.
       - name: Publish to npm
         run: npm publish --provenance --access public --tag ${{ steps.npm-tag.outputs.tag }}
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Create GitHub Release
         run: npx changelogithub
