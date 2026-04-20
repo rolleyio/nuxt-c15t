@@ -43,6 +43,14 @@
     "@nuxt/kit": "^4.4.2",
     "c15t": "^2.0.0"
   },
+  "peerDependencies": {
+    "@nuxt/scripts": "*"
+  },
+  "peerDependenciesMeta": {
+    "@nuxt/scripts": {
+      "optional": true
+    }
+  },
   "devDependencies": {
     "@nuxt/devtools": "^3.2.4",
     "@nuxt/eslint-config": "^1.15.2",
@@ -53,7 +61,7 @@
     "changelogen": "^0.6.2",
     "eslint": "^10.2.0",
     "nuxt": "^4.4.2",
-    "typescript": "~6.0.2",
+    "typescript": "~5.7.2",
     "vitest": "^4.1.4",
     "vue-tsc": "^3.2.6"
   },

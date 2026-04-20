@@ -64,7 +64,9 @@ export interface TranslationConfig {
 }
 
 /**
- * Resolved runtime config passed via runtimeConfig.public.c15t
+ * Resolved runtime config passed via runtimeConfig.public.c15t.
+ * Note: translations are NOT included here — they ship via a virtual
+ * template (`#build/nuxt-c15t-translations.mjs`) to keep the SSR payload small.
  */
 export interface C15tRuntimeConfig {
   mode: 'hosted' | 'offline' | 'self-hosted'
@@ -73,6 +75,11 @@ export interface C15tRuntimeConfig {
   countryOverride: string
   iframeBlocking: boolean
   cookiePolicy: CookiePolicyConfig
-  translations: TranslationConfig
   prefetchScript: boolean
+  version: string
+  cspNonce: string
+  readCspNonceFromRuntimeConfig: boolean
+  scriptsIntegration: boolean
+  serverProxy: boolean
+  serverProxyPath: string
 }
