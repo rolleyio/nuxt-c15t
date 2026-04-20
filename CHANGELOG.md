@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.2.2
+
+[compare changes](https://github.com/rolleyio/nuxt-c15t/compare/v0.2.1...v0.2.2)
+
+### 🩹 Fixes
+
+- **release:** Upgrade npm to latest for Trusted Publishing ([#9](https://github.com/rolleyio/nuxt-c15t/pull/9))
+
+### ❤️ Contributors
+
+- Matthew Rollinson ([@matt-rolley](https://github.com/matt-rolley))
+
 ## v0.2.1
 
 [compare changes](https://github.com/rolleyio/nuxt-c15t/compare/v0.2.0...v0.2.1)
