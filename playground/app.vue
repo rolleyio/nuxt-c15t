@@ -12,6 +12,7 @@ const pages = [
   { path: '/compound-conditions', label: 'Compound Conditions' },
   { path: '/consent-gate', label: 'Consent Gate' },
   { path: '/translations', label: 'Translations' },
+  { path: '/callbacks', label: 'Callbacks' },
   { path: '/advanced', label: 'Advanced' },
 ]
 </script>
