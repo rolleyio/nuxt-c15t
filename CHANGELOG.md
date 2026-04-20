@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.2.3
+
+[compare changes](https://github.com/rolleyio/nuxt-c15t/compare/v0.2.2...v0.2.3)
+
+### 🩹 Fixes
+
+- **release:** Use Node 24 so bundled npm supports Trusted Publishing ([#10](https://github.com/rolleyio/nuxt-c15t/pull/10))
+
+### ❤️ Contributors
+
+- Matthew Rollinson ([@matt-rolley](https://github.com/matt-rolley))
+
 ## v0.2.2
 
 [compare changes](https://github.com/rolleyio/nuxt-c15t/compare/v0.2.1...v0.2.2)
