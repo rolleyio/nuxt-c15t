@@ -27,11 +27,6 @@ const pages = [
         </h1>
       </div>
 
-      <UNavigationMenu
-        :items="pages.map(p => ({ label: p.label, to: p.path }))"
-        class="mb-6"
-      />
-
       <UCard class="mb-6">
         <div class="flex items-center gap-3 flex-wrap text-xs">
           <span class="font-semibold text-gray-500">State:</span>
@@ -60,7 +55,17 @@ const pages = [
         </div>
       </UCard>
 
-      <NuxtPage />
+      <div class="grid grid-cols-1 md:grid-cols-[14rem_1fr] gap-6">
+        <aside>
+          <UNavigationMenu
+            :items="pages.map(p => ({ label: p.label, to: p.path }))"
+            orientation="vertical"
+          />
+        </aside>
+        <main class="min-w-0">
+          <NuxtPage />
+        </main>
+      </div>
 
       <C15tBanner />
       <C15tDialog />
