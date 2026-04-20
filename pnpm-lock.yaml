@@ -17,6 +17,9 @@ importers:
       c15t:
         specifier: ^2.0.0
         version: 2.0.0(typescript@5.7.3)
+      h3:
+        specifier: ^1.15.11
+        version: 1.15.11
     devDependencies:
       '@nuxt/devtools':
         specifier: ^3.2.4
