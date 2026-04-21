@@ -1,4 +1,6 @@
 ---
+title: nuxt-c15t — Consent management for Nuxt
+description: Reactive composables, headless components, Nuxt Scripts integration, and vendor-aware cookie policy tables.
 layout: home
 
 hero:

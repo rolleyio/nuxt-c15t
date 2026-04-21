@@ -5,6 +5,9 @@ const OG_IMAGE = `${SITE_URL}/og.png`
 
 export default defineConfig({
   title: 'nuxt-c15t',
+  // We handle the title suffix ourselves in transformPageData so the
+  // homepage doesn't end up with a doubled 'nuxt-c15t'.
+  titleTemplate: false,
   description: 'Consent management for Nuxt — reactive composables, headless components, and Nuxt Scripts integration',
 
   lastUpdated: true,
@@ -30,12 +33,24 @@ export default defineConfig({
     ['meta', { name: 'twitter:image', content: OG_IMAGE }],
   ],
 
+  transformPageData: (pageData) => {
+    // Ensure the rendered <title> is the suffixed form for regular pages
+    // and the clean form for the homepage.
+    const frontmatterTitle = pageData.frontmatter.title as string | undefined
+    if (frontmatterTitle) {
+      pageData.title = frontmatterTitle.includes('nuxt-c15t')
+        ? frontmatterTitle
+        : `${frontmatterTitle} | nuxt-c15t`
+    }
+  },
+
   transformHead: ({ pageData }) => {
     const head: Array<[string, Record<string, string>]> = []
     const path = pageData.relativePath.replace(/\.md$/, '').replace(/index$/, '')
     const url = `${SITE_URL}/${path}`.replace(/\/$/, '') || SITE_URL
-    const title = pageData.frontmatter.title
-      ? `${pageData.frontmatter.title} | nuxt-c15t`
+    const frontmatterTitle = pageData.frontmatter.title as string | undefined
+    const title = frontmatterTitle
+      ? (frontmatterTitle.includes('nuxt-c15t') ? frontmatterTitle : `${frontmatterTitle} | nuxt-c15t`)
       : 'nuxt-c15t — Consent management for Nuxt'
     const description = pageData.frontmatter.description ?? 'Consent management for Nuxt — reactive composables, headless components, and Nuxt Scripts integration'
 
