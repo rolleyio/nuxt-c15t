@@ -1,8 +1,52 @@
 import { defineConfig } from 'vitepress'
 
+const SITE_URL = 'https://nuxt-c15t.rolley.io'
+const OG_IMAGE = `${SITE_URL}/og.png`
+
 export default defineConfig({
   title: 'nuxt-c15t',
   description: 'Consent management for Nuxt — reactive composables, headless components, and Nuxt Scripts integration',
+
+  lastUpdated: true,
+
+  sitemap: {
+    hostname: SITE_URL,
+  },
+
+  head: [
+    ['link', { rel: 'icon', type: 'image/png', href: '/favicon.png' }],
+
+    // Canonical URL handled per-page via transformHead below
+
+    // Open Graph
+    ['meta', { property: 'og:type', content: 'website' }],
+    ['meta', { property: 'og:site_name', content: 'nuxt-c15t' }],
+    ['meta', { property: 'og:image', content: OG_IMAGE }],
+    ['meta', { property: 'og:image:width', content: '1200' }],
+    ['meta', { property: 'og:image:height', content: '630' }],
+
+    // Twitter card
+    ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
+    ['meta', { name: 'twitter:image', content: OG_IMAGE }],
+  ],
+
+  transformHead: ({ pageData }) => {
+    const head: Array<[string, Record<string, string>]> = []
+    const path = pageData.relativePath.replace(/\.md$/, '').replace(/index$/, '')
+    const url = `${SITE_URL}/${path}`.replace(/\/$/, '') || SITE_URL
+    const title = pageData.frontmatter.title
+      ? `${pageData.frontmatter.title} | nuxt-c15t`
+      : 'nuxt-c15t — Consent management for Nuxt'
+    const description = pageData.frontmatter.description ?? 'Consent management for Nuxt — reactive composables, headless components, and Nuxt Scripts integration'
+
+    head.push(['link', { rel: 'canonical', href: url }])
+    head.push(['meta', { property: 'og:url', content: url }])
+    head.push(['meta', { property: 'og:title', content: title }])
+    head.push(['meta', { property: 'og:description', content: description }])
+    head.push(['meta', { name: 'twitter:title', content: title }])
+    head.push(['meta', { name: 'twitter:description', content: description }])
+    return head
+  },
 
   themeConfig: {
     nav: [
