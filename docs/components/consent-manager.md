@@ -23,8 +23,10 @@ A convenience component that renders both the consent banner and preferences dia
 This is equivalent to:
 
 ```vue
-<C15tBanner />
-<C15tDialog />
+<template>
+  <C15tBanner />
+  <C15tDialog />
+</template>
 ```
 
 ### Custom UI via Named Slots

@@ -21,7 +21,9 @@ Inline trigger that opens the consent preferences dialog. Use it in body copy, f
 Renders a `<button>` by default. Use `as-anchor` to render an `<a>` instead:
 
 ```vue
-<C15tDialogLink as-anchor>Cookie settings</C15tDialogLink>
+<template>
+  <C15tDialogLink as-anchor>Cookie settings</C15tDialogLink>
+</template>
 ```
 
 ## Props

@@ -30,14 +30,16 @@ See the [`<C15tIframe>` component reference](/components/iframe) for custom plac
 Use any configured consent category:
 
 ```vue
-<!-- Marketing: ads, social embeds, retargeting -->
-<C15tIframe category="marketing" src="..." />
+<template>
+  <!-- Marketing: ads, social embeds, retargeting -->
+  <C15tIframe category="marketing" src="..." />
 
-<!-- Measurement: analytics embeds -->
-<C15tIframe category="measurement" src="..." />
+  <!-- Measurement: analytics embeds -->
+  <C15tIframe category="measurement" src="..." />
 
-<!-- Functionality: maps, chat widgets -->
-<C15tIframe category="functionality" src="..." />
+  <!-- Functionality: maps, chat widgets -->
+  <C15tIframe category="functionality" src="..." />
+</template>
 ```
 
 ## Automatic blocking of raw `<iframe>` elements
