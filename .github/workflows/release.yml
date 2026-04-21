@@ -34,7 +34,6 @@ jobs:
       - run: pnpm run lint
       - run: pnpm run dev:prepare
       - run: pnpm run test
-      - run: pnpm run prepack
 
       # Publish from inside CI using the tag as the source of truth for the
       # version. Local `pnpm release` already wrote CHANGELOG.md, bumped
