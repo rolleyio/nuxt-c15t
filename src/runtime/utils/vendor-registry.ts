@@ -170,4 +170,22 @@ export const vendorRegistry: VendorDefinition[] = [
       { name: '__cf_bm', vendor: 'Cloudflare Turnstile', category: 'necessary', purpose: 'Bot management cookie used to distinguish between humans and bots.', duration: '30 minutes', type: 'HTTP' },
     ],
   },
+  {
+    id: 'directus',
+    name: 'Directus',
+    privacyPolicyUrl: 'https://directus.io/privacy',
+    cookies: [
+      { name: 'directus_session_token', vendor: 'Directus', category: 'necessary', purpose: 'Stores the signed session JWT for an authenticated Directus user so the backend can identify them across requests.', duration: '1 day', type: 'HTTP' },
+      { name: 'directus_refresh_token', vendor: 'Directus', category: 'necessary', purpose: 'Long-lived token used to silently refresh the access token without requiring re-authentication.', duration: '7 days', type: 'HTTP' },
+    ],
+  },
+  {
+    id: 'medusa',
+    name: 'Medusa',
+    privacyPolicyUrl: 'https://medusajs.com/privacy',
+    cookies: [
+      { name: 'medusa_auth_token', vendor: 'Medusa', category: 'necessary', purpose: 'Stores the authenticated customer\'s JWT so their session persists across page loads on the storefront.', duration: 'Persistent', type: 'HTML Local Storage' },
+      { name: 'connect.sid', vendor: 'Medusa', category: 'necessary', purpose: 'Express session identifier. Only set when the Medusa backend is configured with session auth (non-default).', duration: 'Session', type: 'HTTP' },
+    ],
+  },
 ]
