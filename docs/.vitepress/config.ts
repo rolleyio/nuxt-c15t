@@ -8,6 +8,7 @@ export default defineConfig({
     nav: [
       { text: 'Guide', link: '/guide/getting-started' },
       { text: 'API', link: '/api/use-c15t' },
+      { text: 'Playground', link: 'https://playground.nuxt-c15t.rolley.io/', target: '_blank' },
     ],
 
     sidebar: [
