@@ -89,7 +89,7 @@ Configuration for the `<C15tCookiePolicy>` component and `useCookiePolicy()` com
 
 Vendor IDs to include in the cookie policy table. Each must match an ID in the built-in vendor registry.
 
-Available vendors: `google-tag-manager`, `google-analytics`, `google-ads`, `meta-pixel`, `posthog`, `linkedin-insight`, `tiktok-pixel`, `microsoft-clarity`, `hotjar`, `intercom`, `hubspot`, `stripe`.
+Available vendors: `google-tag-manager`, `google-analytics`, `google-ads`, `meta-pixel`, `posthog`, `linkedin-insight`, `tiktok-pixel`, `microsoft-clarity`, `hotjar`, `intercom`, `hubspot`, `stripe`, `youtube`, `vimeo`, `cloudflare`, `cloudflare-turnstile`, `directus`, `medusa`.
 
 #### `cookiePolicy.cookies`
 
