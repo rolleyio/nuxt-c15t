@@ -1,6 +1,22 @@
 # Changelog
 
 
+## v0.2.4
+
+[compare changes](https://github.com/rolleyio/nuxt-c15t/compare/v0.2.3...v0.2.4)
+
+### 🚀 Enhancements
+
+- **vendors:** Add Directus and Medusa to the cookie registry ([#12](https://github.com/rolleyio/nuxt-c15t/pull/12))
+
+### 🏡 Chore
+
+- **release:** Drop redundant prepack step ([#11](https://github.com/rolleyio/nuxt-c15t/pull/11))
+
+### ❤️ Contributors
+
+- Matthew Rollinson ([@matt-rolley](https://github.com/matt-rolley))
+
 ## v0.2.3
 
 [compare changes](https://github.com/rolleyio/nuxt-c15t/compare/v0.2.2...v0.2.3)
