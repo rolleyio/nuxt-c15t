@@ -29,20 +29,22 @@ Inline consent manager. Renders the same per-category toggles as `<C15tDialog>` 
 All state is exposed via the default slot, so you can render any layout:
 
 ```vue
-<C15tWidget v-slot="{ displayedConsents, consents, toggle, saveCustom, acceptAll, rejectAll }">
-  <div v-for="ct in displayedConsents" :key="ct.name">
-    <input
-      type="checkbox"
-      :checked="consents[ct.name]"
-      :disabled="ct.disabled"
-      @change="toggle(ct.name, $event.target.checked)"
-    >
-    {{ ct.name }}
-  </div>
-  <button @click="rejectAll">Reject</button>
-  <button @click="saveCustom">Save</button>
-  <button @click="acceptAll">Accept all</button>
-</C15tWidget>
+<template>
+  <C15tWidget v-slot="{ displayedConsents, consents, toggle, saveCustom, acceptAll, rejectAll }">
+    <div v-for="ct in displayedConsents" :key="ct.name">
+      <input
+        type="checkbox"
+        :checked="consents[ct.name]"
+        :disabled="ct.disabled"
+        @change="toggle(ct.name, $event.target.checked)"
+      >
+      {{ ct.name }}
+    </div>
+    <button @click="rejectAll">Reject</button>
+    <button @click="saveCustom">Save</button>
+    <button @click="acceptAll">Accept all</button>
+  </C15tWidget>
+</template>
 ```
 
 ## Slot props

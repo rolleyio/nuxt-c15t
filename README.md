@@ -55,14 +55,16 @@ export default defineNuxtConfig({
 This renders both the banner and preferences dialog. You can also use `<C15tBanner>` and `<C15tDialog>` separately, or customise them via named slots:
 
 ```vue
-<C15tConsentManager>
-  <template #banner="{ acceptAll, acceptNecessary, openPreferences }">
-    <!-- your custom banner -->
-  </template>
-  <template #dialog="{ displayedConsents, toggle, saveCustom, acceptAll, close }">
-    <!-- your custom dialog -->
-  </template>
-</C15tConsentManager>
+<template>
+  <C15tConsentManager>
+    <template #banner="{ acceptAll, acceptNecessary, openPreferences }">
+      <!-- your custom banner -->
+    </template>
+    <template #dialog="{ displayedConsents, toggle, saveCustom, acceptAll, close }">
+      <!-- your custom dialog -->
+    </template>
+  </C15tConsentManager>
+</template>
 ```
 
 4. Check consent anywhere

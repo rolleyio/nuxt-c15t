@@ -37,9 +37,11 @@ Mount once, typically in your `app.vue` alongside `<C15tBanner>` and `<C15tDialo
 The default icon is a cookie-ish dotted circle. Override via the default slot:
 
 ```vue
-<C15tDialogTrigger>
-  <Icon name="i-heroicons-cog-6-tooth" />
-</C15tDialogTrigger>
+<template>
+  <C15tDialogTrigger>
+    <Icon name="i-heroicons-cog-6-tooth" />
+  </C15tDialogTrigger>
+</template>
 ```
 
 ## Dragging
