@@ -1,6 +1,30 @@
 # Changelog
 
 
+## v0.2.6
+
+[compare changes](https://github.com/rolleyio/nuxt-c15t/compare/v0.2.4...v0.2.6)
+
+### 🩹 Fixes
+
+- **playground:** Declare tailwindcss as a direct dependency ([3e03319](https://github.com/rolleyio/nuxt-c15t/commit/3e03319))
+
+### 📖 Documentation
+
+- Add sitemap, OG tags, favicon, and robots.txt ([#15](https://github.com/rolleyio/nuxt-c15t/pull/15))
+- Explicit homepage frontmatter + tidy title handling ([669f8c4](https://github.com/rolleyio/nuxt-c15t/commit/669f8c4))
+
+### 🏡 Chore
+
+- Suppress changelogen's browser tab + wrap vue code samples ([#13](https://github.com/rolleyio/nuxt-c15t/pull/13))
+- Remove repo-level vercel.json ([#14](https://github.com/rolleyio/nuxt-c15t/pull/14))
+- Add catalogue metadata to package.json ([#16](https://github.com/rolleyio/nuxt-c15t/pull/16))
+- **release:** V0.2.5 ([b18fa1c](https://github.com/rolleyio/nuxt-c15t/commit/b18fa1c))
+
+### ❤️ Contributors
+
+- Matthew Rollinson ([@matt-rolley](https://github.com/matt-rolley))
+
 ## v0.2.5
 
 [compare changes](https://github.com/rolleyio/nuxt-c15t/compare/v0.2.4...v0.2.5)

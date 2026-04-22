@@ -1,6 +1,6 @@
 {
   "name": "nuxt-c15t",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "description": "Nuxt module for c15t consent management — reactive composables, headless components, Nuxt Scripts integration, and vendor-aware cookie policy tables",
   "keywords": [
     "nuxt",
