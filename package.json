@@ -2,11 +2,35 @@
   "name": "nuxt-c15t",
   "version": "0.2.4",
   "description": "Nuxt module for c15t consent management — reactive composables, headless components, Nuxt Scripts integration, and vendor-aware cookie policy tables",
+  "keywords": [
+    "nuxt",
+    "nuxt-module",
+    "nuxt3",
+    "nuxt4",
+    "module",
+    "consent",
+    "gdpr",
+    "cmp",
+    "c15t",
+    "cookie-consent",
+    "privacy"
+  ],
+  "homepage": "https://nuxt-c15t.rolley.io",
+  "bugs": {
+    "url": "https://github.com/rolleyio/nuxt-c15t/issues"
+  },
+  "author": {
+    "name": "Matthew Rollinson",
+    "email": "matt@rolley.io"
+  },
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/rolleyio/nuxt-c15t.git"
   },
-  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "type": "module",
   "exports": {
     ".": {
