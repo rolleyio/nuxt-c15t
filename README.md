@@ -9,6 +9,7 @@
 
 - [✨ &nbsp;Release Notes](/CHANGELOG.md)
 - [📚 &nbsp;Documentation](https://nuxt-c15t.rolley.io)
+- [🎮 &nbsp;Playground](https://playground.nuxt-c15t.rolley.io)
 
 ## Features
 
