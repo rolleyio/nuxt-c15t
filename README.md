@@ -6,10 +6,13 @@
 [![Nuxt][nuxt-src]][nuxt-href]
 
 > Consent management for Nuxt — reactive composables, headless components, Nuxt Scripts integration, and vendor-aware cookie policy tables
+>
+> Built on [c15t](https://c15t.com), the open-source headless consent library.
 
 - [✨ &nbsp;Release Notes](/CHANGELOG.md)
 - [📚 &nbsp;Documentation](https://nuxt-c15t.rolley.io)
 - [🎮 &nbsp;Playground](https://playground.nuxt-c15t.rolley.io)
+- [🔗 &nbsp;c15t docs](https://c15t.com/docs)
 
 ## Features
 
